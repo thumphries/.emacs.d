@@ -6,7 +6,8 @@
   (require 'use-package))
 
 (use-package diminish
-  :load-path "site-lisp/diminish")
+  :load-path "site-lisp/diminish"
+  :commands (diminish))
 
 (use-package haskell-mode-autoloads
   :load-path "site-lisp/haskell-mode"
@@ -19,6 +20,30 @@
   :mode (("\\`README\\.md\\'" . gfm-mode)
          ("\\.md\\'"          . markdown-mode)
          ("\\.markdown\\'"    . markdown-mode)))
+
+(use-package ivy
+  :load-path "site-lisp/ivy"
+  :diminish (ivy-mode . "")
+  :init
+    (use-package counsel
+      :load-path "site-lisp/ivy"
+      :bind
+        (("M-x" . counsel-M-x)))
+    (use-package swiper
+      :load-path "site-lisp/ivy"
+      :bind
+        (("\C-s" . swiper)))
+  :config
+    (ivy-mode 1)
+    ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+    (setq ivy-use-virtual-buffers t)
+    ;; number of result lines to display
+    (setq ivy-height 10)
+    ;; does not count candidates
+    (setq ivy-count-format "")
+    ;; fuzzy matching
+    (setq ivy-re-builders-alist
+      '((t . ivy--regex-fuzzy))))
 
 (cua-mode 't)
 (electric-indent-mode 0)
