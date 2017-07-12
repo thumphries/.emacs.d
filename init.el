@@ -1,3 +1,9 @@
+(eval-and-compile
+  (mapc #'(lambda (path)
+            (add-to-list 'load-path
+                         (expand-file-name path user-emacs-directory)))
+        '("site-lisp" "site-lisp/use-package" ""))
+  (require 'use-package))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
