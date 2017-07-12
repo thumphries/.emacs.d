@@ -45,6 +45,10 @@
     (setq ivy-re-builders-alist
       '((t . ivy--regex-fuzzy))))
 
+(use-package find-file-in-project
+  :load-path "site-lisp/find-file-in-project"
+  :bind (("C-c p f" . find-file-in-project)))
+
 (cua-mode 't)
 (electric-indent-mode 0)
 (load-theme 'tango-dark)
