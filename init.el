@@ -5,6 +5,9 @@
         '("site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
+(use-package diminish
+  :load-path "site-lisp/diminish")
+
 (use-package haskell-mode-autoloads
   :load-path "site-lisp/haskell-mode"
   :mode (("\\.hs\\(c\\|-boot\\)?\\'" . haskell-mode)

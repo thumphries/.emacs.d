@@ -1,3 +1,4 @@
 site-lisp/use-package https://github.com/jwiegley/use-package
 site-lisp/haskell-mode https://github.com/haskell/haskell-mode
 site-lisp/markdown-mode https://github.com/defunkt/markdown-mode
+site-lisp/diminish https://github.com/myrjola/diminish.el
