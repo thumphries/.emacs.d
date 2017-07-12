@@ -11,6 +11,12 @@
          ("\\.lhs\\'" . literate-haskell-mode)
          ("\\.cabal\\'" . haskell-cabal-mode)))
 
+(use-package markdown-mode
+  :load-path "site-lisp/markdown-mode"
+  :mode (("\\`README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"          . markdown-mode)
+         ("\\.markdown\\'"    . markdown-mode)))
+
 (cua-mode 't)
 (electric-indent-mode 0)
 (load-theme 'tango-dark)
