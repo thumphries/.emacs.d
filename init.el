@@ -2,14 +2,14 @@
   (mapc #'(lambda (path)
             (add-to-list 'load-path
                          (expand-file-name path user-emacs-directory)))
-        '("site-lisp" "site-lisp/use-package" ""))
+        '("site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
+(use-package haskell-mode-autoloads
+  :load-path "site-lisp/haskell-mode"
+  :mode (("\\.hs\\(c\\|-boot\\)?\\'" . haskell-mode)
+         ("\\.lhs\\'" . literate-haskell-mode)
+         ("\\.cabal\\'" . haskell-cabal-mode)))
 
 (cua-mode 't)
 (electric-indent-mode 0)
@@ -28,15 +28,3 @@
 (setq linum-format "%4d ") ; Default formatting has no spacing
 
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (haskell-mode dracula-theme))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
