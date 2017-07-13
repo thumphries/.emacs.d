@@ -15,6 +15,13 @@
          ("\\.lhs\\'" . literate-haskell-mode)
          ("\\.cabal\\'" . haskell-cabal-mode)))
 
+(use-package dante
+  :load-path "site-lisp/dante"
+  :commands 'dante-mode
+  :init
+    (add-hook 'haskell-mode-hook 'dante-mode)
+    (add-hook 'haskell-mode-hook 'flycheck-mode))
+
 (use-package markdown-mode
   :load-path "site-lisp/markdown-mode"
   :mode (("\\`README\\.md\\'" . gfm-mode)
