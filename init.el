@@ -23,9 +23,9 @@
   :config
     (let
       ((methods `((mafia . ,(lambda (root)
-                              (when (and (directory-files root nil ".git")
+                              (when (and (vc-root-dir)
                                          (directory-files root nil ".*\\.cabal$"))
-                                '("mafia" "repl" dante-target))))
+                                '("mafia" "quick" dante-target))))
                   (bare  . ,(lambda (_) '("cabal" "repl" dante-target))))))
       (setq dante-repl-command-line-methods-alist methods))
     (add-hook 'dante-mode-hook #'flycheck-mode))
