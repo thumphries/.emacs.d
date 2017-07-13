@@ -66,6 +66,8 @@
   :mode
     ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
   :init
+    (use-package dash
+      :load-path "site-lisp/dash")
     (setq vc-handled-backends ())
     (setq magit-completing-read-function 'ivy-completing-read))
 

@@ -5,3 +5,4 @@ site-lisp/diminish https://github.com/myrjola/diminish.el
 site-lisp/ivy https://github.com/abo-abo/swiper
 site-lisp/find-file-in-project https://github.com/technomancy/find-file-in-project
 site-lisp/magit https://github.com/magit/magit
+site-lisp/dash https://github.com/magnars/dash.el
