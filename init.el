@@ -49,6 +49,26 @@
   :load-path "site-lisp/find-file-in-project"
   :bind (("C-c p f" . find-file-in-project)))
 
+(use-package magit
+  :load-path "site-lisp/magit/lisp"
+  :commands
+    (magit-mode)
+  :bind
+    (("C-c g l" . magit-log)
+     ("C-c g c" . magit-commit)
+     ("C-c g a" . magit-commit-amend)
+     ("C-c g s" . magit-status)
+     ("C-c g d" . magit-diff-unstaged)
+     ("C-c g e" . magit-diff-staged)
+     ("C-c g b" . magit-blame)
+     ("C-c g q" . magit-blame-quit)
+     ("C-c g u" . magit-stage-file))
+  :mode
+    ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+  :init
+    (setq vc-handled-backends ())
+    (setq magit-completing-read-function 'ivy-completing-read))
+
 (cua-mode 't)
 (electric-indent-mode 0)
 (load-theme 'tango-dark)
