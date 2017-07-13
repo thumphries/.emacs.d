@@ -72,6 +72,10 @@
       :load-path "site-lisp/with-editor")
     (setq magit-completing-read-function 'ivy-completing-read))
 
+(use-package rust-mode
+  :load-path "site-lisp/rust-mode"
+  :mode ("\\.rs\\'" . rust-mode))
+
 (cua-mode 't)
 (electric-indent-mode 0)
 (load-theme 'tango-dark)

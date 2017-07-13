@@ -7,3 +7,4 @@ site-lisp/find-file-in-project https://github.com/technomancy/find-file-in-proje
 site-lisp/magit https://github.com/magit/magit
 site-lisp/dash https://github.com/magnars/dash.el
 site-lisp/with-editor https://github.com/magit/with-editor
+site-lisp/rust-mode https://github.com/rust-lang/rust-mode
