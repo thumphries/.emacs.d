@@ -95,20 +95,71 @@
   :load-path "site-lisp/rust-mode"
   :mode ("\\.rs\\'" . rust-mode))
 
-(cua-mode 't)
-(electric-indent-mode 0)
 (load-theme 'tango-dark)
 
+;; Disable electric-indent-mode
+(electric-indent-mode 0)
+
 ;; CUA mode for selection / mutation / etc.
-(cua-mode t)
+(cua-mode 't)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
 (transient-mark-mode 1) ;; No region when it is not highlighted
 (setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
 (global-set-key (kbd "C-x C-v") 'cua-set-rectangle-mark)
+;; Unbind C-RET, it doesn't work in terminals and is thus a bad habit
+(define-key cua-global-keymap [C-return] nil)
 
+;; Highlight matching parentheses
 (show-paren-mode 1)
 
-(global-linum-mode 1)
-(setq linum-format "%4d ") ; Default formatting has no spacing
+;; Enable line numbers everywhere (besides some major modes)
+(progn
+  (setq linum-mode-inhibit-modes-list '(eshell-mode
+                                        shell-mode
+                                        term-mode
+                                        org-mode
+                                        erc-mode
+                                        calendar
+                                        calendar-mode
+                                        magit-mode))
+  (defadvice linum-on (around linum-on-inhibit-for-modes)
+    "Stop the load of linum-mode for some major modes."
+      (unless (member major-mode linum-mode-inhibit-modes-list) ad-do-it))
+  (ad-activate 'linum-on)
+  (global-linum-mode 1)
+  (setq linum-format "%4d "))
 
+;; Show trailing whitespace in bright red when programming
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+
+;; Disable various visual cruft
+(tool-bar-mode -1)
+(if window-system
+    (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
+    (menu-bar-mode 0))   ;; still want menu bar in OS X
+
+;; mark ring
+;; C-SPC C-SPC - add to mark ring
+;; C-u C-SPC <repeat> - cycle marks
+(setq set-mark-command-repeat-pop t)
+
+;; allow clicking around in xterm
+(require 'mouse)
+(xterm-mouse-mode)
+(setq mouse-autoselect-window t)
+
+;; Show columns in modeline
+(setq column-number-mode t)
+
+;; Really annoying to have the bell ringing when overscrolling
+;; ... best to just disable it, really.
+(setq ring-bell-function 'ignore)
+
+;; add trailing newlines on save
+(setq require-final-newline t)
+
+;; This auto-reloads modified files.
+(global-auto-revert-mode t)
+
+; jump to scratch instead of gnu welcome
+(setq inhibit-startup-screen t)
