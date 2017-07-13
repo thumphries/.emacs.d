@@ -13,14 +13,26 @@
   :load-path "site-lisp/haskell-mode"
   :mode (("\\.hs\\(c\\|-boot\\)?\\'" . haskell-mode)
          ("\\.lhs\\'" . literate-haskell-mode)
-         ("\\.cabal\\'" . haskell-cabal-mode)))
+         ("\\.cabal\\'" . haskell-cabal-mode))
+  :config
+    (add-hook 'haskell-mode-hook (lambda () (local-set-key (kbd "C-c d") #'dante-mode))))
 
 (use-package dante
   :load-path "site-lisp/dante"
   :commands 'dante-mode
-  :init
-    (add-hook 'haskell-mode-hook 'dante-mode)
-    (add-hook 'haskell-mode-hook 'flycheck-mode))
+  :config
+    (let
+      ((methods `((mafia . ,(lambda (root)
+                              (when (and (directory-files root nil ".git")
+                                         (directory-files root nil ".*\\.cabal$"))
+                                '("mafia" "repl" dante-target))))
+                  (bare  . ,(lambda (_) '("cabal" "repl" dante-target))))))
+      (setq dante-repl-command-line-methods-alist methods))
+    (add-hook 'dante-mode-hook #'flycheck-mode))
+
+(use-package flycheck
+  :load-path "site-lisp/flycheck"
+  :commands 'flycheck-mode)
 
 (use-package markdown-mode
   :load-path "site-lisp/markdown-mode"
