@@ -70,7 +70,6 @@
       :load-path "site-lisp/dash")
     (use-package with-editor
       :load-path "site-lisp/with-editor")
-    (setq vc-handled-backends ())
     (setq magit-completing-read-function 'ivy-completing-read))
 
 (cua-mode 't)
