@@ -2,7 +2,7 @@
   (mapc #'(lambda (path)
             (add-to-list 'load-path
                          (expand-file-name path user-emacs-directory)))
-        '("site-lisp" "site-lisp/use-package"))
+        '("lisp" "site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
 (use-package diminish
@@ -95,6 +95,16 @@
   :load-path "site-lisp/rust-mode"
   :mode ("\\.rs\\'" . rust-mode))
 
+(use-package dot-org
+  :load-path "lisp/dot-org"
+  :mode ("\\.org\\'" . org-mode)
+  :bind
+    (("C-c C-j" . org-journal-new-entry)
+     ("C-c a"   . org-agenda))
+  :init
+    (setq org-dir "~/Documents/org/")
+    (setq org-journal-dir "~/Documents/journal/"))
+
 (load-theme 'tango-dark)
 
 ;; Disable electric-indent-mode
@@ -163,3 +173,15 @@
 
 ; jump to scratch instead of gnu welcome
 (setq inhibit-startup-screen t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("/Users/tim/Documents/journal/20170713.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

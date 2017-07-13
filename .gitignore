@@ -30,3 +30,4 @@ var/
 /master/
 /release/
 recentf
+org-clock-save.el
