@@ -31,3 +31,4 @@ var/
 /release/
 recentf
 org-clock-save.el
+.mc-lists.el

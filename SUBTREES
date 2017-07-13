@@ -10,3 +10,4 @@ site-lisp/with-editor https://github.com/magit/with-editor
 site-lisp/rust-mode https://github.com/rust-lang/rust-mode
 site-lisp/dante https://github.com/jyp/dante
 site-lisp/flycheck https://github.com/flycheck/flycheck
+site-lisp/multiple-cursors https://github.com/magnars/multiple-cursors

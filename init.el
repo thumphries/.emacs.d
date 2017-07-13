@@ -57,7 +57,7 @@
     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
     (setq ivy-use-virtual-buffers t)
     ;; number of result lines to display
-    (setq ivy-height 10)
+    (setq ivy-height 15)
     ;; does not count candidates
     (setq ivy-count-format "")
     ;; fuzzy matching
@@ -104,6 +104,21 @@
   :init
     (setq org-dir "~/Documents/org/")
     (setq org-journal-dir "~/Documents/journal/"))
+
+(use-package multiple-cursors
+  :load-path "site-lisp/multiple-cursors"
+  :init
+    (global-unset-key (kbd "S-<down-mouse-1>"))
+  :bind
+    (("C-c c a" . mc/edit-lines)
+     ("C-c c e" . mc/edit-ends-of-lines)
+     ("C-c c s" . mc/mark-all-dwim)
+     ("C-c c y" . yank-rectangle)
+     ("C-c c j" . mc/mark-next-like-this)
+     ("C-c c k" . mc/mark-previous-like-this)
+     ("C-c c n" . mc/mark-next-word-like-this)
+     ("C-c c p" . mc/mark-previous-word-like-this)
+     ("S-<down-mouse-1>" . mc/add-cursor-on-click)))
 
 (load-theme 'tango-dark)
 
