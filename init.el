@@ -95,6 +95,10 @@
   :load-path "site-lisp/rust-mode"
   :mode ("\\.rs\\'" . rust-mode))
 
+(use-package idris-mode
+  :load-path "site-lisp/idris-mode"
+  :mode ("\\.idr\\'" . idris-mode))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
