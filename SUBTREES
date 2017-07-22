@@ -12,3 +12,4 @@ site-lisp/dante https://github.com/jyp/dante
 site-lisp/flycheck https://github.com/flycheck/flycheck
 site-lisp/multiple-cursors https://github.com/magnars/multiple-cursors
 site-lisp/idris-mode https://github.com/idris-hackers/idris-mode
+site-lisp/prop-menu https://github.com/david-christiansen/prop-menu-el
