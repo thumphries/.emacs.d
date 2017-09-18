@@ -66,7 +66,12 @@
 
 (use-package find-file-in-project
   :load-path "site-lisp/find-file-in-project"
-  :bind (("C-c p f" . find-file-in-project)))
+  :bind (("C-c p f" . find-file-in-project))
+  :config
+    (progn
+      ;; ignore directory ".git/" etc
+      ;; TODO this should load gitignore where possible instead
+      (setq ffip-prune-patterns `("*/.git/*" "*/lib/*" "*/dist/*",@ffip-prune-patterns))))
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
