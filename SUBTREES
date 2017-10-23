@@ -3,7 +3,6 @@ site-lisp/haskell-mode https://github.com/haskell/haskell-mode
 site-lisp/markdown-mode https://github.com/defunkt/markdown-mode
 site-lisp/diminish https://github.com/myrjola/diminish.el
 site-lisp/ivy https://github.com/abo-abo/swiper
-site-lisp/find-file-in-project https://github.com/technomancy/find-file-in-project
 site-lisp/magit https://github.com/magit/magit
 site-lisp/dash https://github.com/magnars/dash.el
 site-lisp/with-editor https://github.com/magit/with-editor
