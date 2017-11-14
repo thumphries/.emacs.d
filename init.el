@@ -100,6 +100,10 @@
   :load-path "site-lisp/idris-mode"
   :mode ("\\.idr\\'" . idris-mode))
 
+(use-package nix-mode
+  :load-path "site-lisp/nix-mode"
+  :mode ("\\.nix\\'" . nix-mode))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
