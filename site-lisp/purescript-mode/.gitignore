@@ -1,0 +1,5 @@
+*.elc
+*~
+purescript-mode.info
+purescript-mode.tmp.texi
+dir
