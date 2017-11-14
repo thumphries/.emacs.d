@@ -13,3 +13,4 @@ site-lisp/multiple-cursors https://github.com/magnars/multiple-cursors
 site-lisp/idris-mode https://github.com/idris-hackers/idris-mode
 site-lisp/prop-menu https://github.com/david-christiansen/prop-menu-el
 site-lisp/nix-mode https://github.com/NixOS/nix-mode
+site-lisp/yaml-mode https://github.com/yoshiki/yaml-mode

@@ -104,6 +104,12 @@
   :load-path "site-lisp/nix-mode"
   :mode ("\\.nix\\'" . nix-mode))
 
+(use-package yaml-mode
+  :load-path "site-lisp/yaml-mode"
+  :mode
+    (("\\.yaml\\'" . yaml-mode)
+     ("\\.yml\\'" . yaml-mode)))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
