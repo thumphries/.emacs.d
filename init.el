@@ -17,6 +17,10 @@
   :config
     (add-hook 'haskell-mode-hook (lambda () (local-set-key (kbd "C-c d") #'dante-mode))))
 
+(use-package purescript-mode-autoloads
+  :load-path "site-lisp/purescript-mode"
+  :mode (("\\.purs\\'" . purescript-mode)))
+
 (use-package dante
   :load-path "site-lisp/dante"
   :commands 'dante-mode

@@ -14,3 +14,4 @@ site-lisp/idris-mode https://github.com/idris-hackers/idris-mode
 site-lisp/prop-menu https://github.com/david-christiansen/prop-menu-el
 site-lisp/nix-mode https://github.com/NixOS/nix-mode
 site-lisp/yaml-mode https://github.com/yoshiki/yaml-mode
+site-lisp/purescript-mode https://github.com/dysinger/purescript-mode
