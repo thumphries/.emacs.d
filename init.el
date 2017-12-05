@@ -114,6 +114,10 @@
     (("\\.yaml\\'" . yaml-mode)
      ("\\.yml\\'" . yaml-mode)))
 
+(use-package protobuf-mode
+  :load-path "site-lisp/protobuf-mode"
+  :mode ("\\.proto\\'" . protobuf-mode))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
