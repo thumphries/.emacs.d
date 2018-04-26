@@ -143,7 +143,12 @@
      ("C-c c p" . mc/mark-previous-word-like-this)
      ("S-<down-mouse-1>" . mc/add-cursor-on-click)))
 
-(load-theme 'tango-dark)
+
+(use-package ansi-theme
+  :load-path "lisp/ansi-theme"
+  :no-require t)
+
+;; (load-theme 'tango-dark)
 
 ;; Disable electric-indent-mode
 (electric-indent-mode 0)
@@ -211,15 +216,3 @@
 
 ; jump to scratch instead of gnu welcome
 (setq inhibit-startup-screen t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("/Users/tim/Documents/journal/20170713.org"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
