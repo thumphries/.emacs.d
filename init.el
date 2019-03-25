@@ -216,3 +216,6 @@
 
 ; jump to scratch instead of gnu welcome
 (setq inhibit-startup-screen t)
+
+; deal with "please enter yes or no" hell prompt
+(defalias 'yes-or-no-p 'y-or-n-p) ; stfu
