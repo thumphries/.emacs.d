@@ -118,6 +118,14 @@
   :load-path "site-lisp/protobuf-mode"
   :mode ("\\.proto\\'" . protobuf-mode))
 
+(use-package bazel-mode
+  :load-path "site-lisp/bazel-mode"
+  :mode (("\\.bzl\\'" . bazel-mode)
+         ("BUILD" . bazel-mode)
+         ("BUILD\\.*" . bazel-mode)
+         ("*\\.BUILD" . bazel-mode)
+         ("WORKSPACE" . bazel-mode)))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
