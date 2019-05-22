@@ -96,6 +96,10 @@
   :load-path "site-lisp/rust-mode"
   :mode ("\\.rs\\'" . rust-mode))
 
+(use-package go-mode
+  :load-path "site-lisp/go-mode"
+  :mode ("\\.go\\'" . go-mode))
+
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
   :commands (prop-menu-by-completing-read prop-menu-show-menu))
