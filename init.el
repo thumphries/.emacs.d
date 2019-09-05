@@ -138,9 +138,12 @@
 
 (use-package direnv
   :load-path "site-lisp/direnv"
+  :if (locate-file "direnv" exec-path)
+  :demand t
   :bind
     (("C-c d" . direnv-update-environment))
-  :mode ((".envrc" . direnv-envrc-mode)))
+  :mode ((".envrc" . direnv-envrc-mode))
+  :config (direnv-mode))
 
 (use-package dot-org
   :load-path "lisp/dot-org"
@@ -243,6 +246,3 @@
 
 ; deal with "please enter yes or no" hell prompt
 (defalias 'yes-or-no-p 'y-or-n-p) ; stfu
-
-; enable direnv-mode by default if it's available
-(if (locate-file "direnv" exec-path) (direnv-mode))
