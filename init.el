@@ -131,6 +131,11 @@
          ("*\\.BUILD" . bazel-mode)
          ("WORKSPACE" . bazel-mode)))
 
+(use-package direnv
+  :load-path "site-lisp/direnv"
+  :bind
+    (("C-c d" . direnv-update-environment)))
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
