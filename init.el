@@ -98,7 +98,8 @@
 
 (use-package go-mode
   :load-path "site-lisp/go-mode"
-  :mode ("\\.go\\'" . go-mode))
+  :mode (("\\.go\\'" . go-mode)
+         ("\\.mod\\'" . go-mode)))
 
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
