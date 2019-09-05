@@ -134,7 +134,8 @@
 (use-package direnv
   :load-path "site-lisp/direnv"
   :bind
-    (("C-c d" . direnv-update-environment)))
+    (("C-c d" . direnv-update-environment))
+  :mode ((".envrc" . direnv-envrc-mode)))
 
 (use-package dot-org
   :load-path "lisp/dot-org"
