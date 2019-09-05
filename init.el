@@ -99,7 +99,12 @@
 (use-package go-mode
   :load-path "site-lisp/go-mode"
   :mode (("\\.go\\'" . go-mode)
-         ("\\.mod\\'" . go-mode)))
+         ("\\.mod\\'" . go-mode))
+  :init
+    (defun my-go-mode-hook ()
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      (setq tab-width 2 indent-tabs-mode 1))
+    (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
@@ -238,3 +243,6 @@
 
 ; deal with "please enter yes or no" hell prompt
 (defalias 'yes-or-no-p 'y-or-n-p) ; stfu
+
+; enable direnv-mode by default if it's available
+(if (locate-file "direnv" exec-path) (direnv-mode))
