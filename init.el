@@ -84,7 +84,8 @@
      ("C-c g q" . magit-blame-quit)
      ("C-c g u" . magit-stage-file))
   :mode
-    ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+    (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+     ("git-rebase-todo" . git-rebase-mode))
   :init
     (use-package dash
       :load-path "site-lisp/dash")
