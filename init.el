@@ -156,8 +156,8 @@
     (("C-c C-j" . org-journal-new-entry)
      ("C-c a"   . org-agenda))
   :init
-    (setq org-dir "~/Documents/org/")
-    (setq org-journal-dir "~/Documents/journal/"))
+    (setq org-dir "~/data/docs/org/")
+    (setq org-journal-dir "~/data/docs/org/2019/"))
 
 (use-package multiple-cursors
   :load-path "site-lisp/multiple-cursors"
@@ -178,6 +178,11 @@
 (use-package ansi-theme
   :load-path "lisp/ansi-theme"
   :no-require t)
+
+(use-package lacarte
+  :load-path "site-lisp/lacarte"
+  :bind
+    ("M-o" . lacarte-execute-menu-command))
 
 ;; (load-theme 'tango-dark)
 
