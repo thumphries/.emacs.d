@@ -103,6 +103,9 @@
          ("\\.mod\\'" . go-mode))
   :init
     (defun my-go-mode-hook ()
+      (if
+        (locate-file "goimports" exec-path)
+        (setq gofmt-command "goimports"))
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
