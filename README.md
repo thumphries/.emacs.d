@@ -4,7 +4,7 @@ A modern list api for Emacs. No 'cl required.
 
 ## Installation
 
-It's available on [marmalade](http://marmalade-repo.org/) and [Melpa](https://melpa.org/):
+It's available on [Melpa](https://melpa.org/):
 
     M-x package-install dash
 
@@ -19,11 +19,11 @@ If you want the function combinators, then also:
 
 Add this to the big comment block at the top:
 
-    ;; Package-Requires: ((dash "2.13.0"))
+    ;; Package-Requires: ((dash "2.16.0"))
 
 To get function combinators:
 
-    ;; Package-Requires: ((dash "2.13.0") (dash-functional "1.2.0") (emacs "24"))
+    ;; Package-Requires: ((dash "2.16.0") (dash-functional "1.2.0") (emacs "24"))
 
 ## Upcoming breaking change!
 
@@ -111,7 +111,7 @@ Functions returning a sublist of the original list.
 ### List to list
 
 
-Bag of various functions which modify input list.
+Functions returning a modified copy of the input list.
 
 * [-keep](#-keep-fn-list) `(fn list)`
 * [-concat](#-concat-rest-lists) `(&rest lists)`
@@ -135,9 +135,19 @@ Functions reducing lists into single value.
 * [-reduce-r-from](#-reduce-r-from-fn-initial-value-list) `(fn initial-value list)`
 * [-reduce](#-reduce-fn-list) `(fn list)`
 * [-reduce-r](#-reduce-r-fn-list) `(fn list)`
+* [-reductions-from](#-reductions-from-fn-init-list) `(fn init list)`
+* [-reductions-r-from](#-reductions-r-from-fn-init-list) `(fn init list)`
+* [-reductions](#-reductions-fn-list) `(fn list)`
+* [-reductions-r](#-reductions-r-fn-list) `(fn list)`
 * [-count](#-count-pred-list) `(pred list)`
 * [-sum](#-sum-list) `(list)`
+* [-running-sum](#-running-sum-list) `(list)`
 * [-product](#-product-list) `(list)`
+* [-running-product](#-running-product-list) `(list)`
+* [-inits](#-inits-list) `(list)`
+* [-tails](#-tails-list) `(list)`
+* [-common-prefix](#-common-prefix-rest-lists) `(&rest lists)`
+* [-common-suffix](#-common-suffix-rest-lists) `(&rest lists)`
 * [-min](#-min-list) `(list)`
 * [-min-by](#-min-by-comparator-list) `(comparator list)`
 * [-max](#-max-list) `(list)`
@@ -179,6 +189,10 @@ Functions partitioning the input list into a list of lists.
 * [-partition-all-in-steps](#-partition-all-in-steps-n-step-list) `(n step list)`
 * [-partition-by](#-partition-by-fn-list) `(fn list)`
 * [-partition-by-header](#-partition-by-header-fn-list) `(fn list)`
+* [-partition-after-pred](#-partition-after-pred-pred-list) `(pred list)`
+* [-partition-before-pred](#-partition-before-pred-pred-list) `(pred list)`
+* [-partition-before-item](#-partition-before-item-item-list) `(item list)`
+* [-partition-after-item](#-partition-after-item-item-list) `(item list)`
 * [-group-by](#-group-by-fn-list) `(fn list)`
 
 ### Indexing
@@ -229,6 +243,10 @@ Other list functions not fit to be classified elsewhere.
 * [-some](#-some-pred-list) `(pred list)`
 * [-last](#-last-pred-list) `(pred list)`
 * [-first-item](#-first-item-list) `(list)`
+* [-second-item](#-second-item-arg1) `(arg1)`
+* [-third-item](#-third-item-arg1) `(arg1)`
+* [-fourth-item](#-fourth-item-list) `(list)`
+* [-fifth-item](#-fifth-item-list) `(list)`
 * [-last-item](#-last-item-list) `(list)`
 * [-butlast](#-butlast-list) `(list)`
 * [-sort](#-sort-comparator-list) `(comparator list)`
@@ -271,6 +289,7 @@ Convenient versions of `let` and `let*` constructs combined with flow control.
 * [-let](#-let-varlist-rest-body) `(varlist &rest body)`
 * [-let*](#-let-varlist-rest-body) `(varlist &rest body)`
 * [-lambda](#-lambda-match-form-rest-body) `(match-form &rest body)`
+* [-setq](#-setq-rest-forms) `(&rest forms)`
 
 ### Side-effects
 
@@ -280,8 +299,11 @@ Functions iterating over lists for side-effect only.
 * [-each](#-each-list-fn) `(list fn)`
 * [-each-while](#-each-while-list-pred-fn) `(list pred fn)`
 * [-each-indexed](#-each-indexed-list-fn) `(list fn)`
+* [-each-r](#-each-r-list-fn) `(list fn)`
+* [-each-r-while](#-each-r-while-list-pred-fn) `(list pred fn)`
 * [-dotimes](#-dotimes-num-fn) `(num fn)`
 * [-doto](#-doto-eval-initial-value-rest-forms) `(eval-initial-value &rest forms)`
+* [--doto](#--doto-eval-initial-value-rest-forms) `(eval-initial-value &rest forms)`
 
 ### Destructive operations
 
@@ -372,7 +394,7 @@ See also: [`-map-when`](#-map-when-pred-rep-list), [`-replace-last`](#-replace-l
 
 Return a new list consisting of the result of (`fn` index item) for each item in `list`.
 
-In the anaphoric form `--map-indexed`, the index is exposed as `it-index`.
+In the anaphoric form `--map-indexed`, the index is exposed as symbol `it-index`.
 
 See also: [`-each-indexed`](#-each-indexed-list-fn).
 
@@ -456,7 +478,7 @@ Return a new list of the items in `list` for which `pred` returns a non-nil valu
 
 Alias: `-select`
 
-See also: [`-keep`](#-keep-fn-list)
+See also: [`-keep`](#-keep-fn-list), [`-remove`](#-remove-pred-list).
 
 ```el
 (-filter (lambda (num) (= 0 (% num 2))) '(1 2 3 4)) ;; => '(2 4)
@@ -469,6 +491,8 @@ See also: [`-keep`](#-keep-fn-list)
 Return a new list of the items in `list` for which `pred` returns nil.
 
 Alias: `-reject`
+
+See also: [`-filter`](#-filter-pred-list).
 
 ```el
 (-remove (lambda (num) (= 0 (% num 2))) '(1 2 3 4)) ;; => '(1 3)
@@ -655,7 +679,7 @@ See also: [`-select-columns`](#-select-columns-columns-table), [`-select-by-indi
 ## List to list
 
 
-Bag of various functions which modify input list.
+Functions returning a modified copy of the input list.
 
 #### -keep `(fn list)`
 
@@ -825,16 +849,16 @@ Functions reducing lists into single value.
 Return the result of applying `fn` to `initial-value` and the
 first item in `list`, then applying `fn` to that result and the 2nd
 item, etc. If `list` contains no items, return `initial-value` and
-`fn` is not called.
+do not call `fn`.
 
 In the anaphoric form `--reduce-from`, the accumulated value is
-exposed as `acc`.
+exposed as symbol `acc`.
 
 See also: [`-reduce`](#-reduce-fn-list), [`-reduce-r`](#-reduce-r-fn-list)
 
 ```el
 (-reduce-from '- 10 '(1 2 3)) ;; => 4
-(-reduce-from (lambda (memo item) (concat "(" memo " - " (int-to-string item) ")")) "10" '(1 2 3)) ;; => "(((10 - 1) - 2) - 3)"
+(-reduce-from (lambda (memo item) (format "(%s - %d)" memo item)) "10" '(1 2 3)) ;; => "(((10 - 1) - 2) - 3)"
 (--reduce-from (concat acc " " it) "START" '("a" "b" "c")) ;; => "START a b c"
 ```
 
@@ -851,7 +875,7 @@ See also: [`-reduce-r`](#-reduce-r-fn-list), [`-reduce`](#-reduce-fn-list)
 
 ```el
 (-reduce-r-from '- 10 '(1 2 3)) ;; => -8
-(-reduce-r-from (lambda (item memo) (concat "(" (int-to-string item) " - " memo ")")) "10" '(1 2 3)) ;; => "(1 - (2 - (3 - 10)))"
+(-reduce-r-from (lambda (item memo) (format "(%d - %s)" item memo)) "10" '(1 2 3)) ;; => "(1 - (2 - (3 - 10)))"
 (--reduce-r-from (concat it " " acc) "END" '("a" "b" "c")) ;; => "a b c END"
 ```
 
@@ -859,28 +883,27 @@ See also: [`-reduce-r`](#-reduce-r-fn-list), [`-reduce`](#-reduce-fn-list)
 
 Return the result of applying `fn` to the first 2 items in `list`,
 then applying `fn` to that result and the 3rd item, etc. If `list`
-contains no items, `fn` must accept no arguments as well, and
-reduce return the result of calling `fn` with no arguments. If
-`list` has only 1 item, it is returned and `fn` is not called.
+contains no items, return the result of calling `fn` with no
+arguments. If `list` contains a single item, return that item
+and do not call `fn`.
 
 In the anaphoric form `--reduce`, the accumulated value is
-exposed as `acc`.
+exposed as symbol `acc`.
 
 See also: [`-reduce-from`](#-reduce-from-fn-initial-value-list), [`-reduce-r`](#-reduce-r-fn-list)
 
 ```el
 (-reduce '- '(1 2 3 4)) ;; => -8
-(-reduce (lambda (memo item) (format "%s-%s" memo item)) '(1 2 3)) ;; => "1-2-3"
-(--reduce (format "%s-%s" acc it) '(1 2 3)) ;; => "1-2-3"
+(-reduce 'list '(1 2 3 4)) ;; => '(((1 2) 3) 4)
+(--reduce (format "%s-%d" acc it) '(1 2 3)) ;; => "1-2-3"
 ```
 
 #### -reduce-r `(fn list)`
 
 Replace conses with `fn` and evaluate the resulting expression.
-The final nil is ignored. If `list` contains no items, `fn` must
-accept no arguments as well, and reduce return the result of
-calling `fn` with no arguments. If `list` has only 1 item, it is
-returned and `fn` is not called.
+The final nil is ignored. If `list` contains no items, return the
+result of calling `fn` with no arguments. If `list` contains a single
+item, return that item and do not call `fn`.
 
 The first argument of `fn` is the new item, the second is the
 accumulated value.
@@ -892,8 +915,64 @@ See also: [`-reduce-r-from`](#-reduce-r-from-fn-initial-value-list), [`-reduce`]
 
 ```el
 (-reduce-r '- '(1 2 3 4)) ;; => -2
-(-reduce-r (lambda (item memo) (format "%s-%s" memo item)) '(1 2 3)) ;; => "3-2-1"
-(--reduce-r (format "%s-%s" acc it) '(1 2 3)) ;; => "3-2-1"
+(-reduce-r (lambda (item memo) (format "%s-%d" memo item)) '(1 2 3)) ;; => "3-2-1"
+(--reduce-r (format "%s-%d" acc it) '(1 2 3)) ;; => "3-2-1"
+```
+
+#### -reductions-from `(fn init list)`
+
+Return a list of the intermediate values of the reduction.
+
+See [`-reduce-from`](#-reduce-from-fn-initial-value-list) for explanation of the arguments.
+
+See also: [`-reductions`](#-reductions-fn-list), [`-reductions-r`](#-reductions-r-fn-list), [`-reduce-r`](#-reduce-r-fn-list)
+
+```el
+(-reductions-from (lambda (a i) (format "(%s FN %d)" a i)) "INIT" '(1 2 3 4)) ;; => '("INIT" "(INIT FN 1)" "((INIT FN 1) FN 2)" "(((INIT FN 1) FN 2) FN 3)" "((((INIT FN 1) FN 2) FN 3) FN 4)")
+(-reductions-from 'max 0 '(2 1 4 3)) ;; => '(0 2 2 4 4)
+(-reductions-from '* 1 '(1 2 3 4)) ;; => '(1 1 2 6 24)
+```
+
+#### -reductions-r-from `(fn init list)`
+
+Return a list of the intermediate values of the reduction.
+
+See [`-reduce-r-from`](#-reduce-r-from-fn-initial-value-list) for explanation of the arguments.
+
+See also: [`-reductions-r`](#-reductions-r-fn-list), [`-reductions`](#-reductions-fn-list), [`-reduce`](#-reduce-fn-list)
+
+```el
+(-reductions-r-from (lambda (i a) (format "(%d FN %s)" i a)) "INIT" '(1 2 3 4)) ;; => '("(1 FN (2 FN (3 FN (4 FN INIT))))" "(2 FN (3 FN (4 FN INIT)))" "(3 FN (4 FN INIT))" "(4 FN INIT)" "INIT")
+(-reductions-r-from 'max 0 '(2 1 4 3)) ;; => '(4 4 4 3 0)
+(-reductions-r-from '* 1 '(1 2 3 4)) ;; => '(24 24 12 4 1)
+```
+
+#### -reductions `(fn list)`
+
+Return a list of the intermediate values of the reduction.
+
+See [`-reduce`](#-reduce-fn-list) for explanation of the arguments.
+
+See also: [`-reductions-from`](#-reductions-from-fn-init-list), [`-reductions-r`](#-reductions-r-fn-list), [`-reduce-r`](#-reduce-r-fn-list)
+
+```el
+(-reductions (lambda (a i) (format "(%s FN %d)" a i)) '(1 2 3 4)) ;; => '(1 "(1 FN 2)" "((1 FN 2) FN 3)" "(((1 FN 2) FN 3) FN 4)")
+(-reductions '+ '(1 2 3 4)) ;; => '(1 3 6 10)
+(-reductions '* '(1 2 3 4)) ;; => '(1 2 6 24)
+```
+
+#### -reductions-r `(fn list)`
+
+Return a list of the intermediate values of the reduction.
+
+See [`-reduce-r`](#-reduce-r-fn-list) for explanation of the arguments.
+
+See also: [`-reductions-r-from`](#-reductions-r-from-fn-init-list), [`-reductions`](#-reductions-fn-list), [`-reduce`](#-reduce-fn-list)
+
+```el
+(-reductions-r (lambda (i a) (format "(%d FN %s)" i a)) '(1 2 3 4)) ;; => '("(1 FN (2 FN (3 FN 4)))" "(2 FN (3 FN 4))" "(3 FN 4)" 4)
+(-reductions-r '+ '(1 2 3 4)) ;; => '(10 9 7 4)
+(-reductions-r '* '(1 2 3 4)) ;; => '(24 24 12 4)
 ```
 
 #### -count `(pred list)`
@@ -915,6 +994,18 @@ Return the sum of `list`.
 (-sum '(1 2 3 4)) ;; => 10
 ```
 
+#### -running-sum `(list)`
+
+Return a list with running sums of items in `list`.
+
+`list` must be non-empty.
+
+```el
+(-running-sum '(1 2 3 4)) ;; => '(1 3 6 10)
+(-running-sum '(1)) ;; => '(1)
+(-running-sum '()) ;; Error
+```
+
 #### -product `(list)`
 
 Return the product of `list`.
@@ -923,6 +1014,58 @@ Return the product of `list`.
 (-product '()) ;; => 1
 (-product '(1)) ;; => 1
 (-product '(1 2 3 4)) ;; => 24
+```
+
+#### -running-product `(list)`
+
+Return a list with running products of items in `list`.
+
+`list` must be non-empty.
+
+```el
+(-running-product '(1 2 3 4)) ;; => '(1 2 6 24)
+(-running-product '(1)) ;; => '(1)
+(-running-product '()) ;; Error
+```
+
+#### -inits `(list)`
+
+Return all prefixes of `list`.
+
+```el
+(-inits '(1 2 3 4)) ;; => '(nil (1) (1 2) (1 2 3) (1 2 3 4))
+(-inits nil) ;; => '(nil)
+(-inits '(1)) ;; => '(nil (1))
+```
+
+#### -tails `(list)`
+
+Return all suffixes of `list`
+
+```el
+(-tails '(1 2 3 4)) ;; => '((1 2 3 4) (2 3 4) (3 4) (4) nil)
+(-tails nil) ;; => '(nil)
+(-tails '(1)) ;; => '((1) nil)
+```
+
+#### -common-prefix `(&rest lists)`
+
+Return the longest common prefix of `lists`.
+
+```el
+(-common-prefix '(1)) ;; => '(1)
+(-common-prefix '(1 2) '(3 4) '(1 2)) ;; => nil
+(-common-prefix '(1 2) '(1 2 3) '(1 2 3 4)) ;; => '(1 2)
+```
+
+#### -common-suffix `(&rest lists)`
+
+Return the longest common suffix of `lists`.
+
+```el
+(-common-suffix '(1)) ;; => '(1)
+(-common-suffix '(1 2) '(3 4) '(1 2)) ;; => nil
+(-common-suffix '(1 2 3 4) '(2 3 4) '(3 4)) ;; => '(3 4)
 ```
 
 #### -min `(list)`
@@ -1025,7 +1168,7 @@ Alias: `-any-p`, `-some?`, `-some-p`
 ```el
 (-any? 'even? '(1 2 3)) ;; => t
 (-any? 'even? '(1 3 5)) ;; => nil
-(--any? (= 0 (% it 2)) '(1 2 3)) ;; => t
+(-any? 'null '(1 3 5)) ;; => nil
 ```
 
 #### -all? `(pred list)`
@@ -1269,6 +1412,46 @@ other value (the body).
 (-partition-by-header 'even? '(2 1 1 1 4 1 3 5 6 6 1)) ;; => '((2 1 1 1) (4 1 3 5) (6 6 1))
 ```
 
+#### -partition-after-pred `(pred list)`
+
+Partition directly after each time `pred` is true on an element of `list`.
+
+```el
+(-partition-after-pred #'odd? '()) ;; => '()
+(-partition-after-pred #'odd? '(1)) ;; => '((1))
+(-partition-after-pred #'odd? '(0 1)) ;; => '((0 1))
+```
+
+#### -partition-before-pred `(pred list)`
+
+Partition directly before each time `pred` is true on an element of `list`.
+
+```el
+(-partition-before-pred #'odd? '()) ;; => '()
+(-partition-before-pred #'odd? '(1)) ;; => '((1))
+(-partition-before-pred #'odd? '(0 1)) ;; => '((0) (1))
+```
+
+#### -partition-before-item `(item list)`
+
+Partition directly before each time `item` appears in `list`.
+
+```el
+(-partition-before-item 3 '()) ;; => '()
+(-partition-before-item 3 '(1)) ;; => '((1))
+(-partition-before-item 3 '(3)) ;; => '((3))
+```
+
+#### -partition-after-item `(item list)`
+
+Partition directly after each time `item` appears in `list`.
+
+```el
+(-partition-after-item 3 '()) ;; => '()
+(-partition-after-item 3 '(1)) ;; => '((1))
+(-partition-after-item 3 '(3)) ;; => '((3))
+```
+
 #### -group-by `(fn list)`
 
 Separate `list` into an alist whose keys are `fn` applied to the
@@ -1442,6 +1625,7 @@ Alias: `-uniq`
 ```el
 (-distinct '()) ;; => '()
 (-distinct '(1 2 2 4)) ;; => '(1 2 4)
+(-distinct '(t t t)) ;; => '(t)
 ```
 
 
@@ -1458,6 +1642,7 @@ The time complexity is `o`(n).
 ```el
 (-rotate 3 '(1 2 3 4 5 6 7)) ;; => '(5 6 7 1 2 3 4)
 (-rotate -3 '(1 2 3 4 5 6 7)) ;; => '(4 5 6 7 1 2 3)
+(-rotate 16 '(1 2 3 4 5 6 7)) ;; => '(6 7 1 2 3 4 5)
 ```
 
 #### -repeat `(n x)`
@@ -1526,8 +1711,8 @@ function is applied pairwise taking as first argument element of
 `list1` and as second argument element of `list2` at corresponding
 position.
 
-The anaphoric form `--zip-with` binds the elements from `list1` as `it`,
-and the elements from `list2` as `other`.
+The anaphoric form `--zip-with` binds the elements from `list1` as symbol `it`,
+and the elements from `list2` as symbol `other`.
 
 ```el
 (-zip-with '+ '(1 2 3) '(4 5 6)) ;; => '(5 7 9)
@@ -1657,7 +1842,7 @@ Alias: `-find`
 ```el
 (-first 'even? '(1 2 3)) ;; => 2
 (-first 'even? '(1 3 5)) ;; => nil
-(--first (> it 2) '(1 2 3)) ;; => 3
+(-first 'null '(1 3 5)) ;; => nil
 ```
 
 #### -some `(pred list)`
@@ -1668,8 +1853,8 @@ Alias: `-any`
 
 ```el
 (-some 'even? '(1 2 3)) ;; => t
-(--some (member 'foo it) '((foo bar) (baz))) ;; => '(foo bar)
-(--some (plist-get it :bar) '((:foo 1 :bar 2) (:baz 3))) ;; => 2
+(-some 'null '(1 2 3)) ;; => nil
+(-some 'null '(1 2 nil)) ;; => t
 ```
 
 #### -last `(pred list)`
@@ -1686,12 +1871,62 @@ Return the last x in `list` where (`pred` x) is non-nil, else nil.
 
 Return the first item of `list`, or nil on an empty list.
 
+See also: [`-second-item`](#-second-item-arg1), [`-last-item`](#-last-item-list).
+
 (fn `list`)
 
 ```el
 (-first-item '(1 2 3)) ;; => 1
 (-first-item nil) ;; => nil
 (let ((list (list 1 2 3))) (setf (-first-item list) 5) list) ;; => '(5 2 3)
+```
+
+#### -second-item `(arg1)`
+
+Return the second item of `list`, or nil if `list` is too short.
+
+See also: [`-third-item`](#-third-item-arg1).
+
+(fn `list`)
+
+```el
+(-second-item '(1 2 3)) ;; => 2
+(-second-item nil) ;; => nil
+```
+
+#### -third-item `(arg1)`
+
+Return the third item of `list`, or nil if `list` is too short.
+
+See also: [`-fourth-item`](#-fourth-item-list).
+
+(fn `list`)
+
+```el
+(-third-item '(1 2 3)) ;; => 3
+(-third-item nil) ;; => nil
+```
+
+#### -fourth-item `(list)`
+
+Return the fourth item of `list`, or nil if `list` is too short.
+
+See also: [`-fifth-item`](#-fifth-item-list).
+
+```el
+(-fourth-item '(1 2 3 4)) ;; => 4
+(-fourth-item nil) ;; => nil
+```
+
+#### -fifth-item `(list)`
+
+Return the fifth item of `list`, or nil if `list` is too short.
+
+See also: [`-last-item`](#-last-item-list).
+
+```el
+(-fifth-item '(1 2 3 4 5)) ;; => 5
+(-fifth-item nil) ;; => nil
 ```
 
 #### -last-item `(list)`
@@ -1911,7 +2146,7 @@ last item in second form, etc.
 
 Starting with the value of `x`, thread each expression through `forms`.
 
-Insert `x` at the position signified by the token `it` in the first
+Insert `x` at the position signified by the symbol `it` in the first
 form.  If there are more forms, insert the first form at the position
 signified by `it` in in second form, etc.
 
@@ -1976,9 +2211,10 @@ Convenient versions of `let` and `let*` constructs combined with flow control.
 #### -when-let `(var-val &rest body)`
 
 If `val` evaluates to non-nil, bind it to `var` and execute body.
-`var-val` should be a (`var` `val`) pair.
 
 Note: binding is done according to [`-let`](#-let-varlist-rest-body).
+
+(fn (`var` `val`) &rest `body`)
 
 ```el
 (-when-let (match-index (string-match "d" "abcd")) (+ match-index 2)) ;; => 5
@@ -2004,9 +2240,11 @@ encountered.
 #### -if-let `(var-val then &rest else)`
 
 If `val` evaluates to non-nil, bind it to `var` and do `then`,
-otherwise do `else`. `var-val` should be a (`var` `val`) pair.
+otherwise do `else`.
 
 Note: binding is done according to [`-let`](#-let-varlist-rest-body).
+
+(fn (`var` `val`) `then` &rest `else`)
 
 ```el
 (-if-let (match-index (string-match "d" "abc")) (+ match-index 3) 7) ;; => 7
@@ -2101,14 +2339,17 @@ Key/value stores:
     (&plist key0 a0 ... keyN aN) - bind value mapped by keyK in the
                                    `source` plist to aK.  If the
                                    value is not found, aK is nil.
+                                   Uses `plist-get` to fetch values.
 
     (&alist key0 a0 ... keyN aN) - bind value mapped by keyK in the
                                    `source` alist to aK.  If the
                                    value is not found, aK is nil.
+                                   Uses `assoc` to fetch values.
 
     (&hash key0 a0 ... keyN aN) - bind value mapped by keyK in the
                                   `source` hash table to aK.  If the
                                   value is not found, aK is nil.
+                                  Uses `gethash` to fetch values.
 
 Further, special keyword &keys supports "inline" matching of
 plist-like key-value pairs, similarly to &keys keyword of
@@ -2118,6 +2359,36 @@ plist-like key-value pairs, similarly to &keys keyword of
 
 This binds `n` values from the list to a1 ... aN, then interprets
 the cdr as a plist (see key/value matching above).
+
+`a` shorthand notation for kv-destructuring exists which allows the
+patterns be optionally left out and derived from the key name in
+the following fashion:
+
+- a key :foo is converted into `foo` pattern,
+- a key 'bar is converted into `bar` pattern,
+- a key "baz" is converted into `baz` pattern.
+
+That is, the entire value under the key is bound to the derived
+variable without any further destructuring.
+
+This is possible only when the form following the key is not a
+valid pattern (i.e. not a symbol, a cons cell or a vector).
+Otherwise the matching proceeds as usual and in case of an
+invalid spec fails with an error.
+
+Thus the patterns are normalized as follows:
+
+     ;; derive all the missing patterns
+     (&plist :foo 'bar "baz") => (&plist :foo foo 'bar bar "baz" baz)
+
+     ;; we can specify some but not others
+     (&plist :foo 'bar explicit-bar) => (&plist :foo foo 'bar explicit-bar)
+
+     ;; nothing happens, we store :foo in x
+     (&plist :foo x) => (&plist :foo x)
+
+     ;; nothing happens, we match recursively
+     (&plist :foo (a b c)) => (&plist :foo (a b c))
 
 You can name the source using the syntax `symbol` &as `pattern`.
 This syntax works with lists (proper or improper), vectors and
@@ -2207,6 +2478,35 @@ See [`-let`](#-let-varlist-rest-body) for the description of destructuring mecha
 (funcall (-lambda ((_ . a) (_ . b)) (-concat a b)) '(1 2 3) '(4 5 6)) ;; => '(2 3 5 6)
 ```
 
+#### -setq `(&rest forms)`
+
+Bind each `match-form` to the value of its `val`.
+
+`match-form` destructuring is done according to the rules of [`-let`](#-let-varlist-rest-body).
+
+This macro allows you to bind multiple variables by destructuring
+the value, so for example:
+
+    (-setq (a b) x
+           (&plist :c c) plist)
+
+expands roughly speaking to the following code
+
+    (setq a (car x)
+          b (cadr x)
+          c (plist-get plist :c))
+
+Care is taken to only evaluate each `val` once so that in case of
+multiple assignments it does not cause unexpected side effects.
+
+(fn [`match-form` `val`]...)
+
+```el
+(progn (-setq a 1) a) ;; => 1
+(progn (-setq (a b) (list 1 2)) (list a b)) ;; => '(1 2)
+(progn (-setq (&plist :c c) (list :c "c")) c) ;; => "c"
+```
+
 
 ## Side-effects
 
@@ -2237,13 +2537,34 @@ Return nil, used for side-effects only.
 
 Call (`fn` index item) for each item in `list`.
 
-In the anaphoric form `--each-indexed`, the index is exposed as `it-index`.
+In the anaphoric form `--each-indexed`, the index is exposed as symbol `it-index`.
 
 See also: [`-map-indexed`](#-map-indexed-fn-list).
 
 ```el
 (let (s) (-each-indexed '(a b c) (lambda (index item) (setq s (cons (list item index) s)))) s) ;; => '((c 2) (b 1) (a 0))
 (let (s) (--each-indexed '(a b c) (setq s (cons (list it it-index) s))) s) ;; => '((c 2) (b 1) (a 0))
+```
+
+#### -each-r `(list fn)`
+
+Call `fn` with every item in `list` in reversed order.
+ Return nil, used for side-effects only.
+
+```el
+(let (s) (-each-r '(1 2 3) (lambda (item) (setq s (cons item s))))) ;; => nil
+(let (s) (-each-r '(1 2 3) (lambda (item) (setq s (cons item s)))) s) ;; => '(1 2 3)
+(let (s) (--each-r '(1 2 3) (setq s (cons it s))) s) ;; => '(1 2 3)
+```
+
+#### -each-r-while `(list pred fn)`
+
+Call `fn` with every item in reversed `list` while (`pred` item) is non-nil.
+Return nil, used for side-effects only.
+
+```el
+(let (s) (-each-r-while '(2 4 5 6) 'even? (lambda (item) (!cons item s))) s) ;; => '(6)
+(let (s) (--each-r-while '(1 2 3 4) (>= it 3) (!cons it s)) s) ;; => '(3 4)
 ```
 
 #### -dotimes `(num fn)`
@@ -2265,6 +2586,15 @@ the target form.
 ```el
 (-doto '(1 2 3) (!cdr) (!cdr)) ;; => '(3)
 (-doto '(1 . 2) (setcar 3) (setcdr 4)) ;; => '(3 . 4)
+```
+
+#### --doto `(eval-initial-value &rest forms)`
+
+Anaphoric form of [`-doto`](#-doto-eval-initial-value-rest-forms).
+Note: `it` is not required in each form.
+
+```el
+(gethash "key" (--doto (make-hash-table :test 'equal) (puthash "key" "value" it))) ;; => "value"
 ```
 
 
@@ -2351,7 +2681,7 @@ expects a list with n items as arguments
 
 ```el
 (-map (-applify '+) '((1 1 1) (1 2 3) (5 5 5))) ;; => '(3 6 15)
-(-map (-applify (lambda (a b c) (\` ((\, a) ((\, b) ((\, c))))))) '((1 1 1) (1 2 3) (5 5 5))) ;; => '((1 (1 (1))) (1 (2 (3))) (5 (5 (5))))
+(-map (-applify (lambda (a b c) `(,a (,b (,c))))) '((1 1 1) (1 2 3) (5 5 5))) ;; => '((1 (1 (1))) (1 (2 (3))) (5 (5 (5))))
 (funcall (-applify '<) '(3 6)) ;; => t
 ```
 
@@ -2366,7 +2696,7 @@ In types: (b -> b -> c) -> (a -> b) -> a -> a -> c
 ```el
 (-sort (-on '< 'length) '((1 2 3) (1) (1 2))) ;; => '((1) (1 2) (1 2 3))
 (-min-by (-on '> 'length) '((1 2 3) (4) (1 2))) ;; => '(4)
-(-min-by (-on 'string-lessp 'int-to-string) '(2 100 22)) ;; => 22
+(-min-by (-on 'string-lessp 'number-to-string) '(2 100 22)) ;; => 22
 ```
 
 #### -flip `(func)`
@@ -2515,7 +2845,7 @@ This function satisfies the following laws:
     (-compose (-partial 'nth n) (-prod f1 f2 ...)) = (-compose fn (-partial 'nth n))
 
 ```el
-(funcall (-prodfn '1+ '1- 'int-to-string) '(1 2 3)) ;; => '(2 1 "3")
+(funcall (-prodfn '1+ '1- 'number-to-string) '(1 2 3)) ;; => '(2 1 "3")
 (-map (-prodfn '1+ '1-) '((1 2) (3 4) (5 6) (7 8))) ;; => '((2 1) (4 3) (6 5) (8 7))
 (apply '+ (funcall (-prodfn 'length 'string-to-number) '((1 2 3) "15"))) ;; => 18
 ```
@@ -2548,6 +2878,44 @@ Oh, and don't edit `README.md` directly, it is auto-generated.
 Change `readme-template.md` or `examples-to-docs.el` instead.
 
 ## Changelist
+
+### From 2.15 to 2.16
+
+- Added `--doto`, anaphoric version of `-doto` (#282)
+- Aliased `-cons-pair-p` to `-cons-pair?`(#288)
+- Generalized `-rotate` for |n| greater than the length of the list (@leungbk, #290)
+- Added a mechanism to extend destructuring with custom matchers (@yyoncho, #277)
+
+### From 2.14 to 2.15
+
+This release brings new destructuring features, some new control flow
+functions and performance optimizations.
+
+- Added `-setq` with destructuring binding support similar to `-let` family ([#116](https://github.com/magnars/dash.el/issues/116))
+- Added smarter key destructuring in `-let` and friends where variables are auto-derived from keys ([#111](https://github.com/magnars/dash.el/issues/111))
+- Allow `-let` bindings with place only ([#256](https://github.com/magnars/dash.el/issues/256))
+- Added `-each-r` and `-each-r-while` (@doublep, [#159](https://github.com/magnars/dash.el/issues/159))
+- Added `-common-suffix` (@basil-conto, [#263](https://github.com/magnars/dash.el/issues/263))
+- Improved performance of folds (`-reduce` and friends) (@basil-conto, [#264](https://github.com/magnars/dash.el/issues/264))
+
+### From 2.13 to 2.14
+
+This release retires Emacs 23 support.  We will still try to keep
+things compatible but no future guarantees are made.
+
+- Added edebug support for threading macros (@Wilfred)
+- Added `-unzip`
+- Added gv setters for `-first-item` and `-last-item`
+- Added `-powerset` and `-permutations` (@holomorph)
+- Added `-as->` for threading a named variable (@zck)
+- Added `-partition-after-pred`, `-partition-before-pred`, `-partition-after-item`, `-partition-before-item` (@zck)
+- Fixed a bug in `-any-p` and friends testing for `null` on lists containing `nil` (#239)
+- Fixed infinite loop bug in `-zip` and `-interleave` when called with empty input.
+- Added `-second-item` through to `-fifth-item` as an alternative to `nth` (@Wilfred)
+- Added `-tails` and `-inits`
+- Added `-running-sum` and `-running-product`
+- Added `-reductions[-r][-from]` family of functions (like `-reduce` but collecting intermediate results)
+- Added `-common-prefix` (@basil-conto)
 
 ### From 2.12 to 2.13
 
@@ -2696,6 +3064,8 @@ Change `readme-template.md` or `examples-to-docs.el` instead.
  - [Vasilij Schneidermann](https://github.com/wasamasa) contributed `-some`.
  - [William West](https://github.com/occidens) made `-fixfn` more robust at handling floats.
  - [Cam Saül](https://github.com/camsaul) contributed `-some->`, `-some->>`, and `-some-->`.
+ - [Basil L. Contovounesios](https://github.com/basil-conto) contributed `-common-prefix`.
+ - [Paul Pogonyshev](https://github.com/doublep) contributed `-each-r` and `-each-r-while`.
 
 Thanks!
 
