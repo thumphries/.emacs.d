@@ -17,3 +17,4 @@ site-lisp/yaml-mode https://github.com/yoshiki/yaml-mode
 site-lisp/purescript-mode https://github.com/dysinger/purescript-mode
 site-lisp/bazel-mode https://github.com/bazelbuild/emacs-bazel-mode
 site-lisp/go-mode https://github.com/dominikh/go-mode.el
+site-lisp/direnv https://github.com/wbolster/emacs-direnv

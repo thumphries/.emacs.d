@@ -84,7 +84,8 @@
      ("C-c g q" . magit-blame-quit)
      ("C-c g u" . magit-stage-file))
   :mode
-    ("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+    (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+     ("git-rebase-todo" . git-rebase-mode))
   :init
     (use-package dash
       :load-path "site-lisp/dash")
@@ -98,7 +99,16 @@
 
 (use-package go-mode
   :load-path "site-lisp/go-mode"
-  :mode ("\\.go\\'" . go-mode))
+  :mode (("\\.go\\'" . go-mode)
+         ("\\.mod\\'" . go-mode))
+  :init
+    (defun my-go-mode-hook ()
+      (if
+        (locate-file "goimports" exec-path)
+        (setq gofmt-command "goimports"))
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      (setq tab-width 2 indent-tabs-mode 1))
+    (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
@@ -129,6 +139,15 @@
          ("BUILD\\.*" . bazel-mode)
          ("*\\.BUILD" . bazel-mode)
          ("WORKSPACE" . bazel-mode)))
+
+(use-package direnv
+  :load-path "site-lisp/direnv"
+  :if (locate-file "direnv" exec-path)
+  :demand t
+  :bind
+    (("C-c d" . direnv-update-environment))
+  :mode ((".envrc" . direnv-envrc-mode))
+  :config (direnv-mode))
 
 (use-package dot-org
   :load-path "lisp/dot-org"
