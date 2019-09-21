@@ -24,3 +24,4 @@ site-lisp/ht https://github.com/Wilfred/ht.el
 site-lisp/lsp-mode https://github.com/emacs-lsp/lsp-mode
 site-lisp/lsp-ui https://github.com/emacs-lsp/lsp-ui
 site-lisp/spinner https://github.com/Malabarba/spinner.el
+site-lisp/yasnippet https://github.com/joaotavora/yasnippet
