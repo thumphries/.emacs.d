@@ -170,6 +170,12 @@
   :after (f ht spinner)
   :bind ("C-c C-l" . lsp))
 
+(use-package lsp-ui
+  :load-path "site-lisp/lsp-ui"
+  :after (dash flycheck lsp-mode)
+  :commands (lsp-ui-mode)
+  :defer t)
+
 (use-package dot-org
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
