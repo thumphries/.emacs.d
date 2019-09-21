@@ -68,7 +68,8 @@
       :load-path "site-lisp/ivy"
       :bind
         (("M-x" . counsel-M-x)
-         ("C-c p f" . counsel-git)))
+         ("C-c p f" . counsel-git)
+         ("C-c p s" . counsel-git-grep)))
     (use-package swiper
       :load-path "site-lisp/ivy"
       :bind
@@ -81,9 +82,17 @@
     (setq ivy-height 15)
     ;; does not count candidates
     (setq ivy-count-format "")
-    ;; fuzzy matching
+    ;; matching strategies
     (setq ivy-re-builders-alist
-      '((t . ivy--regex-fuzzy))))
+      '((swiper . ivy--regex-plus)
+        (counsel-git-grep . ivy--regex-plus)
+        (t . ivy--regex-fuzzy)))
+    ;; sorting strategies
+    (setq ivy-sort-matches-functions-alist
+      '((ivy-switch-buffer . ivy-sort-function-buffer)
+        (counsel-find-file . ivy-sort-function-buffer)
+        (counsel-git . ivy-sort-function-buffer)
+        (t . nil))))
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
