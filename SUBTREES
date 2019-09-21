@@ -20,3 +20,4 @@ site-lisp/go-mode https://github.com/dominikh/go-mode.el
 site-lisp/direnv https://github.com/wbolster/emacs-direnv
 site-lisp/f https://github.com/rejeep/f.el
 site-lisp/s https://github.com/magnars/s.el
+site-lisp/ht https://github.com/Wilfred/ht.el
