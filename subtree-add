@@ -6,7 +6,7 @@ PACKAGE="${PROJECT%.*}" # drop .el extensions
 PREFIX="site-lisp/$PACKAGE"
 
 if [ -n "$(git status --porcelain)" ]; then
-  echo "Uncommitted changes. Please run from a clean workspace."
+  echo "Uncommitted changes. Please run from a clean workspace." 1>&2
   exit 1
 fi
 
@@ -17,7 +17,7 @@ fi
 
 echo "Registering subtree at $PREFIX" 1>&2
 MSG="[$PACKAGE] Initial import"
-git subtree add --prefix "$PREFIX" "$REMOTE" --squash master --message "$MSG"
+git subtree add --prefix "$PREFIX" "$REMOTE" --squash "$REF" --message "$MSG"
 echo "$PREFIX $REMOTE" >> SUBTREES
 git add SUBTREES
 git commit -m "[$PACKAGE] Register subtree"

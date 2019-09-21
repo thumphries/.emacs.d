@@ -1,0 +1,25 @@
+#!/bin/sh -eu
+
+PACKAGE=$1
+PREFIX="site-lisp/$PACKAGE"
+SUBTREE="$(egrep -e "^$PREFIX " SUBTREES || true)"
+REF="${2:-master}"
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Uncommitted changes. Please run from a clean workspace." 1>&2
+#  exit 1
+fi
+
+if [ ! -d "$PREFIX" ]; then
+  echo "No registered subtree at $PREFIX" 1>&2
+  exit 1
+fi
+
+if [ -z "$SUBTREE" ]; then
+  echo "Could not find remote, is this registered in SUBTREES?" 1>&2
+  exit 1
+fi
+
+echo "Updating subtree at $PREFIX" 1>&2
+MSG="[$PACKAGE] Update subtree"
+git subtree pull --prefix $SUBTREE "$REF" --squash --message "$MSG"
