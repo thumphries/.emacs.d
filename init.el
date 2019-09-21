@@ -17,6 +17,9 @@
   :load-path "site-lisp/ht"
   :defer t)
 
+(use-package spinner
+  :load-path "site-lisp/spinner"
+  :defer t)
 
 (use-package diminish
   :load-path "site-lisp/diminish"
@@ -164,8 +167,8 @@
 
 (use-package lsp-mode
   :load-path "site-lisp/lsp-mode"
-  :after (f)
-  :demand t)
+  :after (f ht spinner)
+  :bind ("C-c C-l" . lsp))
 
 (use-package dot-org
   :load-path "lisp/dot-org"
