@@ -21,3 +21,4 @@ site-lisp/direnv https://github.com/wbolster/emacs-direnv
 site-lisp/f https://github.com/rejeep/f.el
 site-lisp/s https://github.com/magnars/s.el
 site-lisp/ht https://github.com/Wilfred/ht.el
+site-lisp/lsp-mode https://github.com/emacs-lsp/lsp-mode
