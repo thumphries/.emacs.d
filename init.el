@@ -5,6 +5,19 @@
         '("lisp" "site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
+(use-package f
+  :load-path "site-lisp/f"
+  :defer t)
+
+(use-package s
+  :load-path "site-lisp/s"
+  :defer t)
+
+(use-package ht
+  :load-path "site-lisp/ht"
+  :defer t)
+
+
 (use-package diminish
   :load-path "site-lisp/diminish"
   :commands (diminish))
@@ -148,6 +161,11 @@
     (("C-c d" . direnv-update-environment))
   :mode ((".envrc" . direnv-envrc-mode))
   :config (direnv-mode))
+
+(use-package lsp-mode
+  :load-path "site-lisp/lsp-mode"
+  :after (f)
+  :demand t)
 
 (use-package dot-org
   :load-path "lisp/dot-org"
