@@ -5,6 +5,22 @@
         '("lisp" "site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
+(use-package f
+  :load-path "site-lisp/f"
+  :defer t)
+
+(use-package s
+  :load-path "site-lisp/s"
+  :defer t)
+
+(use-package ht
+  :load-path "site-lisp/ht"
+  :defer t)
+
+(use-package spinner
+  :load-path "site-lisp/spinner"
+  :defer t)
+
 (use-package diminish
   :load-path "site-lisp/diminish"
   :commands (diminish))
@@ -148,6 +164,30 @@
     (("C-c d" . direnv-update-environment))
   :mode ((".envrc" . direnv-envrc-mode))
   :config (direnv-mode))
+
+(use-package yasnippet
+  :load-path "site-lisp/yasnippet"
+  :defer t
+  :commands (yas-global-mode yas-minor-mode yas-expand)
+  :config
+    (yas-reload-all))
+
+(use-package lsp-mode
+  :load-path "site-lisp/lsp-mode"
+  :after (f ht spinner yasnippet)
+  :commands (lsp)
+  :defer t
+  :bind
+    (("C-c l l" . lsp))
+  :init
+    ;; Unsure why the :after can't do this for me
+    (require 'yasnippet))
+
+(use-package lsp-ui
+  :load-path "site-lisp/lsp-ui"
+  :after (dash flycheck yasnippet lsp-mode)
+  :commands (lsp-ui-mode)
+  :defer t)
 
 (use-package dot-org
   :load-path "lisp/dot-org"
