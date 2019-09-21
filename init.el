@@ -175,7 +175,10 @@
 (use-package lsp-mode
   :load-path "site-lisp/lsp-mode"
   :after (f ht spinner yasnippet)
-  :bind ("C-c C-l" . lsp)
+  :commands (lsp)
+  :defer t
+  :bind
+    (("C-c l l" . lsp))
   :init
     ;; Unsure why the :after can't do this for me
     (require 'yasnippet))
