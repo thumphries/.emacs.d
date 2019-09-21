@@ -13,7 +13,8 @@ commands.
 
 # Ivy
 
-[![MELPA](http://melpa.org/packages/ivy-badge.svg)](http://melpa.org/#/ivy)
+[![MELPA](https://melpa.org/packages/ivy-badge.svg)](https://melpa.org/#/ivy)
+[![MELPA Stable](https://stable.melpa.org/packages/ivy-badge.svg)](https://stable.melpa.org/#/ivy)
 
 Ivy is a generic completion mechanism for Emacs. While it operates
 similarly to other completion schemes such as `icomplete-mode`, Ivy
@@ -28,10 +29,14 @@ buffer names.
 
 Install the `ivy` package from MELPA / GNU ELPA.
 
+Users of Debian ≥10 (and derivatives such as Ubuntu ≥18.04) can
+install Ivy, Counsel, and Swiper with `sudo apt install elpa-counsel`.
+To add Hydra support `sudo apt install elpa-ivy-hydra`.
+
 ## Documentation
 
 ### Manual
-The manual is available as [HTML](http://oremacs.com/swiper/).
+The manual is available as [HTML](https://oremacs.com/swiper/).
 
 After installing from MELPA, the manual is also available through the `(ivy)` Info node.
 
@@ -42,10 +47,13 @@ The source file for the Info page is
 Ivy and Swiper wiki is here: [the wiki](https://github.com/abo-abo/swiper/wiki).
 
 ### Small config example
+
 ```elisp
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
+;; enable this if you want `swiper' to use it
+;; (setq search-default-mode #'char-fold-to-regexp)
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
@@ -61,10 +69,15 @@ Ivy and Swiper wiki is here: [the wiki](https://github.com/abo-abo/swiper/wiki).
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 ```
 
+Note: parts of this config can be replaced by using `counsel-mode`.
+
 # Counsel
+
+[![MELPA](https://melpa.org/packages/counsel-badge.svg)](https://melpa.org/#/counsel)
+[![MELPA Stable](https://stable.melpa.org/packages/counsel-badge.svg)](https://stable.melpa.org/#/counsel)
 
 `ivy-mode` ensures that any Emacs command using
 `completing-read-function` uses ivy for completion.
@@ -74,21 +87,44 @@ commands that are customised to make the best use of ivy. For example,
 `counsel-find-file` has some additional keybindings. Pressing
 <kbd>DEL</kbd> will move you to the parent directory.
 
+Enabling `counsel-mode` remaps built-in Emacs functions that have
+counsel replacements:
+
+| Emacs command            | Counsel equivalent         |
+|--------------------------|----------------------------|
+| execute-extended-command | counsel-M-x                |
+| describe-bindings        | counsel-descbinds          |
+| describe-function        | counsel-describe-function  |
+| describe-variable        | counsel-describe-variable  |
+| apropos-command          | counsel-apropos            |
+| describe-face            | counsel-describe-face      |
+| list-faces-display       | counsel-faces              |
+| find-file                | counsel-find-file          |
+| find-library             | counsel-find-library       |
+| imenu                    | counsel-imenu              |
+| load-library             | counsel-load-library       |
+| load-theme               | counsel-load-theme         |
+| yank-pop                 | counsel-yank-pop           |
+| info-lookup-symbol       | counsel-info-lookup-symbol |
+| pop-to-mark-command      | counsel-mark-ring          |
+| bookmark-jump            | counsel-bookmark           |
+
 # Swiper
 
 [![MELPA](https://melpa.org/packages/swiper-badge.svg)](https://melpa.org/#/swiper)
+[![MELPA Stable](https://stable.melpa.org/packages/swiper-badge.svg)](https://stable.melpa.org/#/swiper)
 
 Swiper is an alternative to isearch that uses ivy to show an overview
 of all matches.
 
-![swiper.png](http://oremacs.com/download/swiper.png)
+![swiper.png](https://oremacs.com/download/swiper.png)
 
 A helm version of swiper is also available:
 [swiper-helm](https://github.com/abo-abo/swiper-helm).
 
 ## Screenshots
 
-![ivy-swiper-1.png](http://oremacs.com/download/ivy-swiper-1.png)
+![ivy-swiper-1.png](https://oremacs.com/download/ivy-swiper-1.png)
 
 There's also a ten minute [video demo](https://www.youtube.com/watch?v=VvnJQpTFVDc).
 
@@ -102,16 +138,4 @@ A: Press <kbd>C-M-j</kbd>. Alternatively, you can make the prompt line selectabl
 
 # Contributing
 
-## Copyright Assignment
-
-These package are subject to the same [copyright assignment](http://www.gnu.org/prep/maintain/html_node/Copyright-Papers.html) policy as Emacs itself, org-mode, CEDET and other packages in [GNU ELPA](http://elpa.gnu.org/packages/). Any [legally significant](http://www.gnu.org/prep/maintain/html_node/Legally-Significant.html#Legally-Significant) contributions can only be accepted after the author has completed their paperwork. Please see [the request form](http://git.savannah.gnu.org/cgit/gnulib.git/tree/doc/Copyright/request-assign.future) if you want to proceed.
-
-The copyright assignment isn't a big deal, it just says that the copyright for your submitted changes to Emacs belongs to the FSF. This assignment works for all projects related to Emacs. To obtain it, you need to send one email, then send one letter (if you live in the US, it's digital), and wait for some time (in my case, I had to wait for one month).
-
-## Style
-
-The basic code style guide is to use `(setq indent-tabs-mode nil)`. It is provided for you in [.dir-locals.el](https://github.com/abo-abo/swiper/blob/master/.dir-locals.el), please obey it.
-
-Before submitting the change, run `make compile` and `make test` to make sure that it doesn't introduce new compile warnings or test failures. Also run `make checkdoc` to see that your changes obey the documentation guidelines.
-
-Use your own judgment for the commit messages, I recommend a verbose style using `magit-commit-add-log`.
+Please see the [guidelines](https://github.com/abo-abo/swiper/blob/master/CONTRIBUTING.org) for reporting issues and opening pull requests.
