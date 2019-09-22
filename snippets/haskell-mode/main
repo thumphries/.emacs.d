@@ -1,0 +1,5 @@
+# condition: (looking-back "^main" nil)
+# --
+main :: IO ()
+main = do
+  $0

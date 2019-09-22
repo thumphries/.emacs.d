@@ -1,0 +1,5 @@
+# condition: (looking-back "^m" nil)
+# --
+func (${1:r Recv}) $2 {
+	$0
+}

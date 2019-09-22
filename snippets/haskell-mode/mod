@@ -1,0 +1,5 @@
+# condition: (looking-back "^mod" nil)
+# --
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
+module $0 where
