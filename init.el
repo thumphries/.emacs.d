@@ -17,6 +17,18 @@
   :load-path "site-lisp/ht"
   :defer t)
 
+(use-package smartparens
+  :load-path "site-lisp/smartparens"
+  :commands (smartparens-mode smartparens-strict-mode)
+  :defer t
+  :config
+    (defun my--go-open-block (&rest _ignored)
+      (newline)
+      (indent-according-to-mode)
+      (previous-line)
+      (indent-according-to-mode))
+    (sp-local-pair 'go-mode "{" nil :post-handlers '(( my--go-open-block "RET"))))
+
 (use-package spinner
   :load-path "site-lisp/spinner"
   :defer t)
@@ -131,13 +143,15 @@
   :load-path "site-lisp/go-mode"
   :mode (("\\.go\\'" . go-mode)
          ("\\.mod\\'" . go-mode))
+  :after (smartparens)
   :init
     (defun my-go-mode-hook ()
       (if
         (locate-file "goimports" exec-path)
         (setq gofmt-command "goimports"))
       (add-hook 'before-save-hook 'gofmt-before-save)
-      (setq tab-width 2 indent-tabs-mode 1))
+      (setq tab-width 2 indent-tabs-mode 1)
+      (smartparens-strict-mode))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu
