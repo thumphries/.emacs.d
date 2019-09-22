@@ -1,0 +1,5 @@
+# condition: (looking-back "^f" nil)
+# --
+func ${1:name}(${2:args}) $3 {
+	$0
+}

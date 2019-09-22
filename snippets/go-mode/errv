@@ -1,0 +1,4 @@
+${2:_}, err := ${1:Work()}
+if err != nil {
+	return $3err
+}

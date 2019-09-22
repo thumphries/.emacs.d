@@ -1,0 +1,3 @@
+if err != nil {
+	t.Error(err.Error())
+}

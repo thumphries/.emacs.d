@@ -1,0 +1,4 @@
+${2:_}, err := ${1:Work()}
+if err != nil {
+	t.Error(err.Error())
+}
