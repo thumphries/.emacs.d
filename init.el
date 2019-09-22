@@ -17,6 +17,10 @@
   :load-path "site-lisp/ht"
   :defer t)
 
+(use-package popup
+  :load-path "site-lisp/popup-el"
+  :defer t)
+
 (use-package smartparens
   :load-path "site-lisp/smartparens"
   :commands (smartparens-mode smartparens-strict-mode)
@@ -28,6 +32,16 @@
       (previous-line)
       (indent-according-to-mode))
     (sp-local-pair 'go-mode "{" nil :post-handlers '(( my--go-open-block "RET"))))
+
+(use-package dumb-jump
+  :load-path "site-lisp/dumb-jump"
+  :after (popup)
+  :commands 'dumb-jump-mode
+  :bind
+    (("C-c j g" . dumb-jump-go))
+  :defer t
+  :config
+    (setq dumb-jump-selector 'ivy))
 
 (use-package spinner
   :load-path "site-lisp/spinner"
