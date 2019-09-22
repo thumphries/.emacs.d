@@ -42,8 +42,12 @@
   :mode (("\\.hs\\(c\\|-boot\\)?\\'" . haskell-mode)
          ("\\.lhs\\'" . literate-haskell-mode)
          ("\\.cabal\\'" . haskell-cabal-mode))
+  :after (yasnippet)
   :config
-    (add-hook 'haskell-mode-hook (lambda () (local-set-key (kbd "C-c d") #'dante-mode))))
+    (defun my-haskell-mode-hook ()
+      (local-set-key (kbd "C-c d") #'dante-mode)
+      (yas-minor-mode))
+    (add-hook 'haskell-mode-hook 'my-haskell-mode-hook))
 
 (use-package purescript-mode-autoloads
   :load-path "site-lisp/purescript-mode"
@@ -143,15 +147,16 @@
   :load-path "site-lisp/go-mode"
   :mode (("\\.go\\'" . go-mode)
          ("\\.mod\\'" . go-mode))
-  :after (smartparens)
-  :init
+  :after (smartparens yasnippet)
+  :config
     (defun my-go-mode-hook ()
       (if
         (locate-file "goimports" exec-path)
         (setq gofmt-command "goimports"))
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
-      (smartparens-strict-mode))
+      (smartparens-strict-mode)
+      (yas-minor-mode))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu

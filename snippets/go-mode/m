@@ -1,5 +1,5 @@
 # condition: (looking-back "^m" nil)
 # --
-func (${1:recv}) ${2:name}(${3:args}) $4 {
+func (${1:r Recv}) $2 {
 	$0
 }

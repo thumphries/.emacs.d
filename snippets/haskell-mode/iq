@@ -1,0 +1,3 @@
+# condition: (looking-back "^iq" nil)
+# --
+import qualified $0

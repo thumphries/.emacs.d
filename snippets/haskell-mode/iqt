@@ -1,0 +1,3 @@
+# condition: (looking-back "^iqt" nil)
+# --
+import qualified Data.Text as T
