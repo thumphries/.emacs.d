@@ -31,7 +31,7 @@
          ("\\.lhs\\'" . literate-haskell-mode)
          ("\\.cabal\\'" . haskell-cabal-mode))
   :config
-    (add-hook 'haskell-mode-hook (lambda () (local-set-key (kbd "C-c d") #'dante-mode))))
+  (add-hook 'haskell-mode-hook (lambda () (local-set-key (kbd "C-c d") #'dante-mode))))
 
 (use-package purescript-mode-autoloads
   :load-path "site-lisp/purescript-mode"
@@ -41,14 +41,14 @@
   :load-path "site-lisp/dante"
   :commands 'dante-mode
   :config
-    (let
+  (let
       ((methods `((mafia . ,(lambda (root)
                               (when (and (vc-root-dir)
                                          (directory-files root nil ".*\\.cabal$"))
                                 '("mafia" "quick" dante-target))))
                   (bare  . ,(lambda (_) '("cabal" "repl" dante-target))))))
-      (setq dante-repl-command-line-methods-alist methods))
-    (add-hook 'dante-mode-hook #'flycheck-mode))
+    (setq dante-repl-command-line-methods-alist methods))
+  (add-hook 'dante-mode-hook #'flycheck-mode))
 
 (use-package flycheck
   :load-path "site-lisp/flycheck"
@@ -70,58 +70,58 @@
   :load-path "site-lisp/ivy"
   :diminish (ivy-mode . "")
   :init
-    (use-package counsel
-      :load-path "site-lisp/ivy"
-      :bind
-        (("C-c p f" . counsel-git)
-         ("C-c p s" . counsel-git-grep)))
-    (use-package swiper
-      :load-path "site-lisp/ivy"
-      :bind
-        (("\C-s" . swiper)))
+  (use-package counsel
+    :load-path "site-lisp/ivy"
+    :bind
+    (("C-c p f" . counsel-git)
+     ("C-c p s" . counsel-git-grep)))
+  (use-package swiper
+    :load-path "site-lisp/ivy"
+    :bind
+    (("\C-s" . swiper)))
   :config
-    (ivy-mode 1)
-    ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-    (setq ivy-use-virtual-buffers t)
-    ;; number of result lines to display
-    (setq ivy-height 15)
-    ;; does not count candidates
-    (setq ivy-count-format "")
-    ;; matching strategies
-    (setq ivy-re-builders-alist
-      '((swiper . ivy--regex-plus)
-        (counsel-git-grep . ivy--regex-plus)
-        (t . ivy--regex-fuzzy)))
-    ;; sorting strategies
-    (setq ivy-sort-matches-functions-alist
-      '((ivy-switch-buffer . ivy-sort-function-buffer)
-        (counsel-find-file . ivy-sort-function-buffer)
-        (counsel-git . ivy-sort-function-buffer)
-        (t . nil))))
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 15)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; matching strategies
+  (setq ivy-re-builders-alist
+	'((swiper . ivy--regex-plus)
+          (counsel-git-grep . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
+  ;; sorting strategies
+  (setq ivy-sort-matches-functions-alist
+	'((ivy-switch-buffer . ivy-sort-function-buffer)
+          (counsel-find-file . ivy-sort-function-buffer)
+          (counsel-git . ivy-sort-function-buffer)
+          (t . nil))))
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
   :commands
-    (magit-mode)
+  (magit-mode)
   :bind
-    (("C-c g l" . magit-log)
-     ("C-c g c" . magit-commit)
-     ("C-c g a" . magit-commit-amend)
-     ("C-c g s" . magit-status)
-     ("C-c g d" . magit-diff-unstaged)
-     ("C-c g e" . magit-diff-staged)
-     ("C-c g b" . magit-blame)
-     ("C-c g q" . magit-blame-quit)
-     ("C-c g u" . magit-stage-file))
+  (("C-c g l" . magit-log)
+   ("C-c g c" . magit-commit)
+   ("C-c g a" . magit-commit-amend)
+   ("C-c g s" . magit-status)
+   ("C-c g d" . magit-diff-unstaged)
+   ("C-c g e" . magit-diff-staged)
+   ("C-c g b" . magit-blame)
+   ("C-c g q" . magit-blame-quit)
+   ("C-c g u" . magit-stage-file))
   :mode
-    (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
-     ("git-rebase-todo" . git-rebase-mode))
+  (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
+   ("git-rebase-todo" . git-rebase-mode))
   :init
-    (use-package dash
-      :load-path "site-lisp/dash")
-    (use-package with-editor
-      :load-path "site-lisp/with-editor")
-    (setq magit-completing-read-function 'ivy-completing-read))
+  (use-package dash
+    :load-path "site-lisp/dash")
+  (use-package with-editor
+    :load-path "site-lisp/with-editor")
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package rust-mode
   :load-path "site-lisp/rust-mode"
@@ -132,13 +132,13 @@
   :mode (("\\.go\\'" . go-mode)
          ("\\.mod\\'" . go-mode))
   :init
-    (defun my-go-mode-hook ()
-      (if
+  (defun my-go-mode-hook ()
+    (if
         (locate-file "goimports" exec-path)
         (setq gofmt-command "goimports"))
-      (add-hook 'before-save-hook 'gofmt-before-save)
-      (setq tab-width 2 indent-tabs-mode 1))
-    (add-hook 'go-mode-hook 'my-go-mode-hook))
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    (setq tab-width 2 indent-tabs-mode 1))
+  (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
@@ -155,8 +155,8 @@
 (use-package yaml-mode
   :load-path "site-lisp/yaml-mode"
   :mode
-    (("\\.yaml\\'" . yaml-mode)
-     ("\\.yml\\'" . yaml-mode)))
+  (("\\.yaml\\'" . yaml-mode)
+   ("\\.yml\\'" . yaml-mode)))
 
 (use-package protobuf-mode
   :load-path "site-lisp/protobuf-mode"
@@ -175,7 +175,7 @@
   :if (locate-file "direnv" exec-path)
   :demand t
   :bind
-    (("C-c d" . direnv-update-environment))
+  (("C-c d" . direnv-update-environment))
   :mode ((".envrc" . direnv-envrc-mode))
   :config (direnv-mode))
 
@@ -184,7 +184,7 @@
   :defer t
   :commands (yas-global-mode yas-minor-mode yas-expand)
   :config
-    (yas-reload-all))
+  (yas-reload-all))
 
 (use-package lsp-mode
   :load-path "site-lisp/lsp-mode"
@@ -192,10 +192,10 @@
   :commands (lsp)
   :defer t
   :bind
-    (("C-c l l" . lsp))
+  (("C-c l l" . lsp))
   :init
-    ;; Unsure why the :after can't do this for me
-    (require 'yasnippet))
+  ;; Unsure why the :after can't do this for me
+  (require 'yasnippet))
 
 (use-package lsp-ui
   :load-path "site-lisp/lsp-ui"
@@ -207,26 +207,26 @@
   :load-path "lisp/dot-org"
   :mode ("\\.org\\'" . org-mode)
   :bind
-    (("C-c C-j" . org-journal-new-entry)
-     ("C-c a"   . org-agenda))
+  (("C-c C-j" . org-journal-new-entry)
+   ("C-c a"   . org-agenda))
   :init
-    (setq org-dir "~/data/docs/org/")
-    (setq org-journal-dir "~/data/docs/org/2019/"))
+  (setq org-dir "~/data/docs/org/")
+  (setq org-journal-dir "~/data/docs/org/2019/"))
 
 (use-package multiple-cursors
   :load-path "site-lisp/multiple-cursors"
   :init
-    (global-unset-key (kbd "S-<down-mouse-1>"))
+  (global-unset-key (kbd "S-<down-mouse-1>"))
   :bind
-    (("C-c c a" . mc/edit-lines)
-     ("C-c c e" . mc/edit-ends-of-lines)
-     ("C-c c s" . mc/mark-all-dwim)
-     ("C-c c y" . yank-rectangle)
-     ("C-c c j" . mc/mark-next-like-this)
-     ("C-c c k" . mc/mark-previous-like-this)
-     ("C-c c n" . mc/mark-next-word-like-this)
-     ("C-c c p" . mc/mark-previous-word-like-this)
-     ("S-<down-mouse-1>" . mc/add-cursor-on-click)))
+  (("C-c c a" . mc/edit-lines)
+   ("C-c c e" . mc/edit-ends-of-lines)
+   ("C-c c s" . mc/mark-all-dwim)
+   ("C-c c y" . yank-rectangle)
+   ("C-c c j" . mc/mark-next-like-this)
+   ("C-c c k" . mc/mark-previous-like-this)
+   ("C-c c n" . mc/mark-next-word-like-this)
+   ("C-c c p" . mc/mark-previous-word-like-this)
+   ("S-<down-mouse-1>" . mc/add-cursor-on-click)))
 
 
 (use-package ansi-theme
@@ -236,7 +236,13 @@
 (use-package lacarte
   :load-path "site-lisp/lacarte"
   :bind
-    ("M-o" . lacarte-execute-menu-command))
+  ("M-o" . lacarte-execute-menu-command))
+
+(use-package aldente
+  :load-path "lisp/aldente"
+  :bind
+  (("M-\\" . copy-indent-inner)
+   ("C-M-\\" . copy-indent-outer)))
 
 ;; (load-theme 'tango-dark)
 
