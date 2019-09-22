@@ -26,3 +26,4 @@ site-lisp/lsp-ui https://github.com/emacs-lsp/lsp-ui
 site-lisp/spinner https://github.com/Malabarba/spinner.el
 site-lisp/yasnippet https://github.com/joaotavora/yasnippet
 site-lisp/amx https://github.com/DarwinAwardWinner/amx
+site-lisp/smartparens https://github.com/Fuco1/smartparens
