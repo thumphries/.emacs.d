@@ -60,6 +60,12 @@
          ("\\.md\\'"          . markdown-mode)
          ("\\.markdown\\'"    . markdown-mode)))
 
+(use-package amx
+  :load-path "site-lisp/amx"
+  :after (ivy)
+  :bind ("M-x" . amx)
+  :config (amx-mode))
+
 (use-package ivy
   :load-path "site-lisp/ivy"
   :diminish (ivy-mode . "")
@@ -67,8 +73,7 @@
     (use-package counsel
       :load-path "site-lisp/ivy"
       :bind
-        (("M-x" . counsel-M-x)
-         ("C-c p f" . counsel-git)
+        (("C-c p f" . counsel-git)
          ("C-c p s" . counsel-git-grep)))
     (use-package swiper
       :load-path "site-lisp/ivy"
