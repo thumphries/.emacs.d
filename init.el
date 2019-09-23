@@ -21,6 +21,10 @@
   :load-path "site-lisp/ht"
   :defer t)
 
+(use-package dash
+  :load-path "site-lisp/dash"
+  :defer t)
+
 (use-package popup
   :load-path "site-lisp/popup-el"
   :defer t)
@@ -29,6 +33,29 @@
   :load-path "site-lisp/emacs-doom-themes"
   :config
     (load-theme 'doom-one t))
+
+(use-package shrink-path
+  :load-path "site-lisp/shrink-path"
+  :defer t)
+
+(use-package memoize
+  :load-path "site-lisp/emacs-memoize"
+  :commands 'memoize
+  :defer t)
+
+(use-package all-the-icons
+  :load-path "site-lisp/all-the-icons"
+  :after (memoize)
+  :commands 'all-the-icons-for-file
+  :defer t)
+
+(use-package doom-modeline
+  :load-path "site-lisp/doom-modeline"
+  :demand t
+  :after (dash shrink-path all-the-icons)
+  :config
+    (doom-modeline-mode)
+    (setq doom-modeline-icon nil))
 
 (use-package smartparens
   :load-path "site-lisp/smartparens"
@@ -150,10 +177,6 @@
     ;; amx doesn't "require" ivy, need to make it load
     (require 'ivy)
     (amx-mode))
-
-(use-package dash
-  :load-path "site-lisp/dash"
-  :defer t)
 
 (use-package with-editor
   :load-path "site-lisp/with-editor"
