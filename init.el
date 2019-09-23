@@ -285,7 +285,9 @@
   :bind
     ("M-o" . lacarte-execute-menu-command))
 
-;; (load-theme 'tango-dark)
+(defun byte-compile-dependencies ()
+  (interactive)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/site-lisp/") 0))
 
 ;; Disable electric-indent-mode
 (electric-indent-mode 0)
