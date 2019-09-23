@@ -1,3 +1,7 @@
+;; Discourage garbage collection during init
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Bootstrap use-package
 (eval-and-compile
   (mapc #'(lambda (path)
             (add-to-list 'load-path
@@ -142,14 +146,22 @@
   :after (ivy swiper counsel)
   :defer t
   :bind ("M-x" . amx)
-  :init
+  :config
     ;; amx doesn't "require" ivy, need to make it load
     (require 'ivy)
-  :config (amx-mode))
+    (amx-mode))
 
+(use-package dash
+  :load-path "site-lisp/dash"
+  :defer t)
+
+(use-package with-editor
+  :load-path "site-lisp/with-editor"
+  :defer t)
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
+  :after (dash with-editor ivy)
   :commands
     (magit-mode)
   :bind
@@ -165,11 +177,7 @@
   :mode
     (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
      ("git-rebase-todo" . git-rebase-mode))
-  :init
-    (use-package dash
-      :load-path "site-lisp/dash")
-    (use-package with-editor
-      :load-path "site-lisp/with-editor")
+  :config
     (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package rust-mode
@@ -244,7 +252,7 @@
   :commands (lsp)
   :bind
     (("C-c l l" . lsp))
-  :init
+  :config
     ;; Unsure why the :after can't do this for me
     (require 'yasnippet))
 
@@ -325,10 +333,11 @@
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
 ;; Disable various visual cruft
-(tool-bar-mode -1)
 (if window-system
     (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
-    (menu-bar-mode 0))   ;; still want menu bar in OS X
+    (progn
+      (tool-bar-mode -1)
+      (menu-bar-mode 0)))   ;; still want menu bar in OS X
 
 ;; mark ring
 ;; C-SPC C-SPC - add to mark ring
@@ -358,3 +367,6 @@
 
 ; deal with "please enter yes or no" hell prompt
 (defalias 'yes-or-no-p 'y-or-n-p) ; stfu
+
+;; Let the GC run at a more normal cadence now.
+(setq gc-cons-threshold (* 2 1000 1000))
