@@ -31,3 +31,4 @@ site-lisp/dumb-jump https://github.com/jacktasia/dumb-jump
 site-lisp/popup-el https://github.com/auto-complete/popup-el
 site-lisp/emacs-doom-themes https://github.com/hlissner/emacs-doom-themes
 site-lisp/esup https://github.com/jschaf/esup
+site-lisp/shrink-path https://gitlab.com/bennya/shrink-path.el
