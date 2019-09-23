@@ -293,6 +293,13 @@
   :bind
     ("M-o" . lacarte-execute-menu-command))
 
+(use-package esup
+  :load-path "site-lisp/esup"
+  :defer t
+  :commands (esup)
+  :config
+    (setq esup-depth 0))
+
 (defun byte-compile-dependencies ()
   (interactive)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/site-lisp/") 0))
