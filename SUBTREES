@@ -33,3 +33,4 @@ site-lisp/emacs-doom-themes https://github.com/hlissner/emacs-doom-themes
 site-lisp/esup https://github.com/jschaf/esup
 site-lisp/shrink-path https://gitlab.com/bennya/shrink-path.el
 site-lisp/doom-modeline https://github.com/seagle0128/doom-modeline
+site-lisp/all-the-icons https://github.com/domtronn/all-the-icons.el
