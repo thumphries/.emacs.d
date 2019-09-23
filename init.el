@@ -21,6 +21,11 @@
   :load-path "site-lisp/popup-el"
   :defer t)
 
+(use-package doom-themes
+  :load-path "site-lisp/emacs-doom-themes"
+  :config
+    (load-theme 'doom-one t))
+
 (use-package smartparens
   :load-path "site-lisp/smartparens"
   :commands (smartparens-mode smartparens-strict-mode)
@@ -49,7 +54,8 @@
 
 (use-package diminish
   :load-path "site-lisp/diminish"
-  :commands (diminish))
+  :commands (diminish)
+  :defer t)
 
 (use-package haskell-mode-autoloads
   :load-path "site-lisp/haskell-mode"
@@ -69,6 +75,7 @@
 
 (use-package dante
   :load-path "site-lisp/dante"
+  :defer t
   :commands 'dante-mode
   :config
     (let
@@ -82,7 +89,8 @@
 
 (use-package flycheck
   :load-path "site-lisp/flycheck"
-  :commands 'flycheck-mode)
+  :commands 'flycheck-mode
+  :defer t)
 
 (use-package markdown-mode
   :load-path "site-lisp/markdown-mode"
@@ -90,25 +98,10 @@
          ("\\.md\\'"          . markdown-mode)
          ("\\.markdown\\'"    . markdown-mode)))
 
-(use-package amx
-  :load-path "site-lisp/amx"
-  :after (ivy)
-  :bind ("M-x" . amx)
-  :config (amx-mode))
-
 (use-package ivy
   :load-path "site-lisp/ivy"
+  :defer t
   :diminish (ivy-mode . "")
-  :init
-    (use-package counsel
-      :load-path "site-lisp/ivy"
-      :bind
-        (("C-c p f" . counsel-git)
-         ("C-c p s" . counsel-git-grep)))
-    (use-package swiper
-      :load-path "site-lisp/ivy"
-      :bind
-        (("\C-s" . swiper)))
   :config
     (ivy-mode 1)
     ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
@@ -128,6 +121,32 @@
         (counsel-find-file . ivy-sort-function-buffer)
         (counsel-git . ivy-sort-function-buffer)
         (t . nil))))
+
+(use-package swiper
+  :load-path "site-lisp/ivy"
+  :after (ivy)
+  :defer t
+  :bind
+    (("\C-s" . swiper)))
+
+(use-package counsel
+  :load-path "site-lisp/ivy"
+  :after (ivy swiper)
+  :defer t
+  :bind
+    (("C-c p f" . counsel-git)
+     ("C-c p s" . counsel-git-grep)))
+
+(use-package amx
+  :load-path "site-lisp/amx"
+  :after (ivy swiper counsel)
+  :defer t
+  :bind ("M-x" . amx)
+  :init
+    ;; amx doesn't "require" ivy, need to make it load
+    (require 'ivy)
+  :config (amx-mode))
+
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
@@ -175,6 +194,7 @@
 
 (use-package prop-menu
   :load-path "site-lisp/prop-menu"
+  :defer t
   :commands (prop-menu-by-completing-read prop-menu-show-menu))
 
 (use-package idris-mode
@@ -206,7 +226,6 @@
 (use-package direnv
   :load-path "site-lisp/direnv"
   :if (locate-file "direnv" exec-path)
-  :demand t
   :bind
     (("C-c d" . direnv-update-environment))
   :mode ((".envrc" . direnv-envrc-mode))
@@ -223,7 +242,6 @@
   :load-path "site-lisp/lsp-mode"
   :after (f ht spinner yasnippet)
   :commands (lsp)
-  :defer t
   :bind
     (("C-c l l" . lsp))
   :init
@@ -261,10 +279,6 @@
      ("C-c c p" . mc/mark-previous-word-like-this)
      ("S-<down-mouse-1>" . mc/add-cursor-on-click)))
 
-
-(use-package ansi-theme
-  :load-path "lisp/ansi-theme"
-  :no-require t)
 
 (use-package lacarte
   :load-path "site-lisp/lacarte"
