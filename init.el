@@ -54,7 +54,8 @@
   :demand t
   :after (dash shrink-path all-the-icons)
   :config
-    (doom-modeline-mode))
+    (doom-modeline-mode)
+    (setq doom-modeline-icon nil))
 
 (use-package smartparens
   :load-path "site-lisp/smartparens"
