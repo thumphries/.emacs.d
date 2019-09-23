@@ -1,0 +1,11 @@
+language: generic
+sudo: no
+env:
+  - EVM_EMACS=emacs-25.3-travis
+  - EVM_EMACS=emacs-git-snapshot-travis
+before_install:
+  - source ./scripts/travis-evm-cask.sh
+  - evm install $EVM_EMACS --use --skip
+  - cask --debug
+script:
+  - cask exec ert-runner
