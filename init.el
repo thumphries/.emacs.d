@@ -165,7 +165,8 @@
   :after (ivy swiper)
   :defer t
   :bind
-    (("C-c p f" . counsel-git)
+    (("C-x b" . counsel-switch-buffer)
+     ("C-c p f" . counsel-git)
      ("C-c p s" . counsel-git-grep)))
 
 (use-package amx
