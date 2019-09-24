@@ -33,3 +33,4 @@ recentf
 org-clock-save.el
 .mc-lists.el
 amx-items
+.lsp-session*
