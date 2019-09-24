@@ -362,12 +362,24 @@
 ;; Show trailing whitespace in bright red when programming
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
-;; Disable various visual cruft
-(if window-system
-    (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
-    (progn
-      (tool-bar-mode -1)
-      (menu-bar-mode 0)))   ;; still want menu bar in OS X
+(defun gui-setup ()
+  (message "gui-setup")
+  ;; Scroll bar trashes themes
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  ;; HACK override theme fg/bg
+  (set-foreground-color "#C0C0C0")
+  (set-background-color "#171717")
+  (add-to-list 'default-frame-alist '(foreground-color . "#C0C0C0"))
+  (add-to-list 'default-frame-alist '(background-color . "#171717")))
+
+(defun term-setup ()
+  (message "term-setup"))
+
+(if window-system (gui-setup) (term-setup))
+
+;; Menu bar always off
+(menu-bar-mode 0)
 
 ;; mark ring
 ;; C-SPC C-SPC - add to mark ring
