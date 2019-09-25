@@ -36,3 +36,4 @@ site-lisp/doom-modeline https://github.com/seagle0128/doom-modeline
 site-lisp/all-the-icons https://github.com/domtronn/all-the-icons.el
 site-lisp/emacs-memoize https://github.com/skeeto/emacs-memoize
 site-lisp/hydra https://github.com/abo-abo/hydra
+site-lisp/origami https://github.com/gregsexton/origami.el
