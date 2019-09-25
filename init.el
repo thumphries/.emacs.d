@@ -57,6 +57,15 @@
     (doom-modeline-mode)
     (setq doom-modeline-icon nil))
 
+(use-package iv
+  :load-path "site-lisp/hydra"
+  :defer t)
+
+(use-package hydra
+  :load-path "site-lisp/hydra"
+  :after (iv)
+  :demand t)
+
 (use-package smartparens
   :load-path "site-lisp/smartparens"
   :commands (smartparens-mode smartparens-strict-mode)
@@ -185,11 +194,12 @@
 
 (use-package magit
   :load-path "site-lisp/magit/lisp"
-  :after (dash with-editor ivy)
+  :after (dash with-editor ivy hydra)
   :commands
     (magit-mode)
   :bind
-    (("C-c g l" . magit-log)
+    (("C-c g g" . hydra-magit/body)
+     ("C-c g l" . magit-log)
      ("C-c g c" . magit-commit)
      ("C-c g a" . magit-commit-amend)
      ("C-c g s" . magit-status)
@@ -202,7 +212,16 @@
     (("/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|BRANCH_DESCRIPTION\\)\\'" . global-git-commit-mode)
      ("git-rebase-todo" . git-rebase-mode))
   :config
-    (setq magit-completing-read-function 'ivy-completing-read))
+    (setq magit-completing-read-function 'ivy-completing-read)
+    (defhydra hydra-magit (:color blue :columns 8)
+      "Magit"
+      ("c" magit-status "status")
+      ("C" magit-checkout "checkout")
+      ("v" magit-branch-manager "branch manager")
+      ("m" magit-merge "merge")
+      ("l" magit-log "log")
+      ("!" magit-git-command "command")
+      ("$" magit-process "process")))
 
 (use-package rust-mode
   :load-path "site-lisp/rust-mode"
