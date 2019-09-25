@@ -390,6 +390,9 @@
 ;; add trailing newlines on save
 (setq require-final-newline t)
 
+;; Disable file locking
+(setq create-lockfiles nil)
+
 ;; This auto-reloads modified files.
 (global-auto-revert-mode t)
 
