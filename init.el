@@ -66,6 +66,22 @@
   :after (iv)
   :demand t)
 
+(use-package origami
+  :load-path "site-lisp/origami"
+  :after (s dash hydra)
+  :defer t
+  :bind
+    (("C-c o o" . hydra-origami/body)
+     ("C-c o t" . origami-toggle-node))
+  :config
+    (global-origami-mode)
+    (defhydra hydra-origami (:color red)
+      "origami"
+      ("n" origami-next-fold "next-fold")
+      ("p" origami-previous-fold "previous-fold")
+      ("N" origami-forward-toggle-node "forward-toggle")
+      ("P" origami-toggle-node "backward-toggle")))
+
 (use-package smartparens
   :load-path "site-lisp/smartparens"
   :commands (smartparens-mode smartparens-strict-mode)
@@ -213,15 +229,15 @@
      ("git-rebase-todo" . git-rebase-mode))
   :config
     (setq magit-completing-read-function 'ivy-completing-read)
-    (defhydra hydra-magit (:color blue :columns 8)
-      "Magit"
-      ("c" magit-status "status")
+    (defhydra hydra-magit (:color blue)
+      "magit"
+      ("s" magit-status "status")
+      ("d" magit-diff-unstaged "diff-unstaged")
+      ("e" magit-diff-staged "diff-staged")
+      ("c" magit-commit "commit")
+      ("a" magit-commit-amend "amend")
       ("C" magit-checkout "checkout")
-      ("v" magit-branch-manager "branch manager")
-      ("m" magit-merge "merge")
-      ("l" magit-log "log")
-      ("!" magit-git-command "command")
-      ("$" magit-process "process")))
+      ("l" magit-log "log")))
 
 (use-package rust-mode
   :load-path "site-lisp/rust-mode"
