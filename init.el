@@ -71,8 +71,15 @@
   :after (s dash hydra)
   :defer t
   :bind
-    (("C-c o o" . hydra-origami/body)
-     ("C-c o t" . origami-toggle-node))
+    (("C-c o ?" . hydra-origami/body)
+     ("C-c o s" . origami-show-only-node)
+     ("C-c o t" . origami-open-node)
+     ("C-c o o" . origami-open-node-recursively)
+     ("C-c o k" . origami-close-node-recursively)
+     ("C-c o <tab>" . origami-recursively-toggle-node)
+     ("C-c o a" . origami-open-all-nodes)
+     ("C-c o c" . origami-close-all-nodes)
+     ("C-c o q" . origami-reset))
   :config
     (global-origami-mode)
     (defhydra hydra-origami (:color red)
@@ -80,7 +87,9 @@
       ("n" origami-next-fold "next-fold")
       ("p" origami-previous-fold "previous-fold")
       ("N" origami-forward-toggle-node "forward-toggle")
-      ("P" origami-toggle-node "backward-toggle")))
+      ("P" origami-toggle-node "backward-toggle")
+      ("r" origami-recursively-toggle-node "recursive-toggle")
+      ("s" origami-show-only-node "show-only")))
 
 (use-package smartparens
   :load-path "site-lisp/smartparens"
