@@ -1,0 +1,4 @@
+;; -*- emacs-lisp -*-
+
+(setq custom-file (expand-file-name "init.el" user-emacs-directory))
+(load custom-file :noerror :nomessage)
