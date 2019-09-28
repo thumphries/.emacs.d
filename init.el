@@ -57,6 +57,10 @@
     (doom-modeline-mode)
     (setq doom-modeline-icon nil))
 
+(use-package hide-mode-line
+  :load-path "site-lisp/emacs-hide-mode-line"
+  :defer t)
+
 (use-package smartparens
   :load-path "site-lisp/smartparens"
   :commands (smartparens-mode smartparens-strict-mode)
