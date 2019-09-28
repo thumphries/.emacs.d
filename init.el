@@ -367,6 +367,25 @@
 ;; Show trailing whitespace in bright red when programming
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
+;; when in fundamental mode, try to figure out buffer type on save
+(defun my-normal-mode-hook ()
+  (when (eq major-mode 'fundamental-mode) (normal-mode)))
+(add-hook 'before-save-hook #'my-normal-mode-hook)
+
+;; Automatically u+x when there's a shebang up top
+(add-hook 'after-save-hook
+        #'(lambda ()
+        (and (save-excursion
+               (save-restriction
+                 (widen)
+                 (goto-char (point-min))
+                 (save-match-data
+                   (looking-at "^#!"))))
+             (not (file-executable-p buffer-file-name))
+             (shell-command (concat "chmod u+x " buffer-file-name))
+             (message
+              (concat "Saved " buffer-file-name " as executable")))))
+
 ;; Disable various visual cruft
 (if window-system
     (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
