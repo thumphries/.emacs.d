@@ -367,6 +367,11 @@
 ;; Show trailing whitespace in bright red when programming
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
+;; when in fundamental mode, try to figure out buffer type on save
+(defun my-normal-mode-hook ()
+  (when (eq major-mode 'fundamental-mode) (normal-mode)))
+(add-hook 'before-save-hook #'my-normal-mode-hook)
+
 ;; Disable various visual cruft
 (if window-system
     (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
