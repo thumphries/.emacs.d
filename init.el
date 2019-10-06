@@ -170,6 +170,7 @@
   :defer t
   :bind
     (("C-x b" . counsel-switch-buffer)
+     ("C-x C-f" . counsel-find-file)
      ("C-c p f" . counsel-git)
      ("C-c p s" . counsel-git-grep)))
 
