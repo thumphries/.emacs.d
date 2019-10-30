@@ -36,3 +36,5 @@ site-lisp/doom-modeline https://github.com/seagle0128/doom-modeline
 site-lisp/all-the-icons https://github.com/domtronn/all-the-icons.el
 site-lisp/emacs-memoize https://github.com/skeeto/emacs-memoize
 site-lisp/emacs-hide-mode-line https://github.com/hlissner/emacs-hide-mode-line
+site-lisp/emacs-terraform-mode https://github.com/syohex/emacs-terraform-mode
+site-lisp/emacs-hcl-mode https://github.com/syohex/emacs-hcl-mode
