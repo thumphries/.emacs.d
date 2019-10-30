@@ -260,6 +260,16 @@
          ("*\\.BUILD" . bazel-mode)
          ("WORKSPACE" . bazel-mode)))
 
+(use-package hcl-mode
+  :load-path "site-lisp/emacs-hcl-mode"
+  :defer t)
+
+(use-package terraform-mode
+  :load-path "site-lisp/emacs-terraform-mode"
+  :after (hcl-mode)
+  :mode (("\\.tf" . terraform-mode)
+         ("\\.tfvars" . terraform-mode)))
+
 (use-package direnv
   :load-path "site-lisp/direnv"
   :if (locate-file "direnv" exec-path)
