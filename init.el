@@ -225,7 +225,7 @@
         (setq gofmt-command "goimports"))
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
-      (smartparens-strict-mode)
+      (smartparens-mode)
       (yas-minor-mode))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
 
