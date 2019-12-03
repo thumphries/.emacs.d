@@ -270,6 +270,15 @@
   :mode (("\\.tf" . terraform-mode)
          ("\\.tfvars" . terraform-mode)))
 
+(use-package graphql-mode
+  :load-path "site-lisp/graphql-mode"
+  :mode (("\\.gql" . graphql-mode)
+         ("\\.graphql" . graphql-mode))
+  :config
+    (defun my-graphql-mode-hook ()
+      (smartparens-mode))
+    (add-hook 'graphql-mode-hook 'my-graphql-mode-hook))
+
 (use-package direnv
   :load-path "site-lisp/direnv"
   :if (locate-file "direnv" exec-path)
