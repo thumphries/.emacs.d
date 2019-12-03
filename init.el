@@ -223,6 +223,7 @@
       (if
         (locate-file "goimports" exec-path)
         (setq gofmt-command "goimports"))
+      (setq gofmt-show-errors 'echo)
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
       (smartparens-mode)
