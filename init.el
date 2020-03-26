@@ -319,7 +319,7 @@
      ("C-c a"   . org-agenda))
   :init
     (setq org-dir "~/data/docs/org/")
-    (setq org-journal-dir "~/data/docs/org/2019/"))
+    (setq org-journal-dir "~/data/docs/org/2020/"))
 
 (use-package multiple-cursors
   :load-path "site-lisp/multiple-cursors"

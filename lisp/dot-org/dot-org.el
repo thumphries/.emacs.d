@@ -69,4 +69,7 @@
 ;; org-clock prompt after idle
 (setq org-clock-idle-time 25)
 
+;; display with indent
+(setq org-startup-indented t)
+
 (provide 'dot-org)
