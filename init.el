@@ -226,7 +226,7 @@
   :load-path "site-lisp/go-mode"
   :mode (("\\.go\\'" . go-mode)
          ("\\.mod\\'" . go-mode))
-  :after (smartparens yasnippet)
+  :after (yasnippet)
   :config
     (defun my-go-mode-hook ()
       (if
@@ -235,7 +235,6 @@
       (setq gofmt-show-errors 'echo)
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
-      (smartparens-mode)
       (yas-minor-mode))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
 
@@ -283,11 +282,7 @@
 (use-package graphql-mode
   :load-path "site-lisp/graphql-mode"
   :mode (("\\.gql" . graphql-mode)
-         ("\\.graphql" . graphql-mode))
-  :config
-    (defun my-graphql-mode-hook ()
-      (smartparens-mode))
-    (add-hook 'graphql-mode-hook 'my-graphql-mode-hook))
+         ("\\.graphql" . graphql-mode)))
 
 (use-package direnv
   :load-path "site-lisp/direnv"
@@ -413,8 +408,8 @@
     ;; Show trailing whitespace in bright red regardless of mode
     (setq show-trailing-whitespace t)))
 
-(add-hook 'prog-mode-hook (lambda () (whitespace-rules)))
-(add-hook 'text-mode-hook (lambda () (whitespace-rules)))
+(add-hook 'prog-mode-hook (lambda () (progn (whitespace-rules) (smartparens-mode))))
+(add-hook 'text-mode-hook (lambda () (progn (whitespace-rules) (smartparens-mode))))
 
 ;; when in fundamental mode, try to figure out buffer type on save
 (defun my-normal-mode-hook ()
