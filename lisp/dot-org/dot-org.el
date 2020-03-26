@@ -72,4 +72,30 @@
 ;; display with indent
 (setq org-startup-indented t)
 
+;; show everything except for drawers
+(setq org-startup-folded nil);;'content)
+
+;; make sure org-goto works with ivy
+;; https://github.com/abo-abo/swiper/issues/986#issuecomment-300482804
+(setq org-goto-interface 'outline-path-completion)
+(setq org-outline-path-complete-in-steps nil)
+
+;; tree nav bindings
+(org-defkey org-mode-map (kbd "M-n") 'org-next-visible-heading)
+(org-defkey org-mode-map (kbd "M-p") 'org-previous-visible-heading)
+(org-defkey org-mode-map (kbd "M-f") 'org-forward-heading-same-level)
+(org-defkey org-mode-map (kbd "M-b") 'org-backward-heading-same-level)
+
+(org-defkey org-mode-map (kbd "M-a") 'outline-show-all) ;; expand
+
+(org-defkey org-mode-map (kbd "M-h") 'outline-promote)
+(org-defkey org-mode-map (kbd "M-j") 'outline-move-subtree-down)
+(org-defkey org-mode-map (kbd "M-k") 'outline-move-subtree-up)
+(org-defkey org-mode-map (kbd "M-l") 'outline-demote)
+
+(org-defkey org-mode-map (kbd "M-s") 'org-goto)
+
+;; New subtree under the current one (default is in-place)
+(org-defkey org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
+
 (provide 'dot-org)

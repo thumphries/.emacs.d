@@ -9,3 +9,4 @@ Aims:
     - no network access required
 - Start as fast as possible
     - `use-package` defers as much as possible
+    - foo bar baz

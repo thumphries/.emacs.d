@@ -1,6 +1,10 @@
 ;; Discourage garbage collection during init
 (setq gc-cons-threshold (* 50 1000 1000))
 
+;; Set high tolerance for bad elisp
+(setq max-lisp-eval-depth 10000) ;; default 500
+(setq max-specpdl-size 50000) ;; default 1300
+
 ;; Bootstrap use-package
 (eval-and-compile
   (mapc #'(lambda (path)
@@ -8,6 +12,11 @@
                          (expand-file-name path user-emacs-directory)))
         '("lisp" "site-lisp" "site-lisp/use-package"))
   (require 'use-package))
+
+(use-package untabify-mode
+  :load-path "lisp/untabify"
+  :commands (untabify-mode untabify-all)
+  :defer t)
 
 (use-package f
   :load-path "site-lisp/f"
@@ -385,8 +394,27 @@
   (global-linum-mode 1)
   (setq linum-format "%4d "))
 
-;; Show trailing whitespace in bright red when programming
-(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(defun murder-tabs ()
+  (progn
+    (untabify-mode)
+    (whitespace-mode)
+    (setq whitespace-tab 'trailing-whitespace)
+    (setq whitespace-style '(face tabs indentation::space))))
+
+(defun whitespace-rules ()
+  (progn
+    (if
+      (not (or
+        ;; tabby mode whitelist
+        (derived-mode-p 'go-mode)
+        (derived-mode-p 'makefile-mode)))
+      (murder-tabs))
+
+    ;; Show trailing whitespace in bright red regardless of mode
+    (setq show-trailing-whitespace t)))
+
+(add-hook 'prog-mode-hook (lambda () (whitespace-rules)))
+(add-hook 'text-mode-hook (lambda () (whitespace-rules)))
 
 ;; when in fundamental mode, try to figure out buffer type on save
 (defun my-normal-mode-hook ()
