@@ -391,6 +391,7 @@
 
 (defun murder-tabs ()
   (progn
+    (message "Murdering tabs...")
     (untabify-mode)
     (whitespace-mode)
     (setq whitespace-tab 'trailing-whitespace)
@@ -399,10 +400,11 @@
 (defun whitespace-rules ()
   (progn
     (if
-      (not (or
+      (or
         ;; tabby mode whitelist
         (derived-mode-p 'go-mode)
-        (derived-mode-p 'makefile-mode)))
+        (derived-mode-p 'makefile-mode))
+      (message "Tabs allowed in this buffer.")
       (murder-tabs))
 
     ;; Show trailing whitespace in bright red regardless of mode
