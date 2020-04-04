@@ -389,10 +389,16 @@
   (global-linum-mode 1)
   (setq linum-format "%4d "))
 
+(defun allow-tabs ()
+  (progn
+    (message "Tabs allowed in this buffer.")
+    (untabify-mode 'f)
+    (setq untabify-on-save nil)))
+
 (defun murder-tabs ()
   (progn
     (message "Murdering tabs...")
-    (untabify-mode)
+    (untabify-mode 't)
     (whitespace-mode)
     (setq whitespace-tab 'trailing-whitespace)
     (setq whitespace-style '(face tabs indentation::space))))
@@ -404,7 +410,7 @@
         ;; tabby mode whitelist
         (derived-mode-p 'go-mode)
         (derived-mode-p 'makefile-mode))
-      (message "Tabs allowed in this buffer.")
+      (allow-tabs)
       (murder-tabs))
 
     ;; Show trailing whitespace in bright red regardless of mode
