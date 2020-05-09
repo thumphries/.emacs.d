@@ -284,6 +284,10 @@
   :mode (("\\.gql" . graphql-mode)
          ("\\.graphql" . graphql-mode)))
 
+(use-package web-mode
+  :load-path "site-lisp/web-mode"
+  :mode (("\\.svelte" . web-mode)))
+
 (use-package direnv
   :load-path "site-lisp/direnv"
   :if (locate-file "direnv" exec-path)
