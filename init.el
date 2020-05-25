@@ -286,7 +286,16 @@
 
 (use-package web-mode
   :load-path "site-lisp/web-mode"
-  :mode (("\\.svelte" . web-mode)))
+  :mode (("\\.svelte" . web-mode)
+         ("\\.html" . web-mode))
+  :config
+    (defun my-web-mode-hook ()
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-code-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+      (setq web-mode-enable-auto-pairing t)
+      (local-set-key (kbd "C-c C-k") 'web-mode-comment-or-uncomment))
+    (add-hook 'web-mode-hook 'my-web-mode-hook))
 
 (use-package direnv
   :load-path "site-lisp/direnv"
