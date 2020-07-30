@@ -231,7 +231,9 @@
     (defun my-go-mode-hook ()
       (if
         (locate-file "goimports" exec-path)
-        (setq gofmt-command "goimports"))
+        (progn
+          (setq gofmt-command "goimports")
+          (setq gofmt-args '("-local" "github.com/thumphries"))))
       (setq gofmt-show-errors 'echo)
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
@@ -287,9 +289,15 @@
 (use-package web-mode
   :load-path "site-lisp/web-mode"
   :mode (("\\.svelte" . web-mode)
-         ("\\.html" . web-mode))
+         ("\\.html" . web-mode)
+         ("\\.tmpl" . web-mode)
+         ("\\.gotpl" . web-mode))
   :config
     (defun my-web-mode-hook ()
+      (setq web-mode-engines-alist
+        '(("go"    . "\\.gotpl\\'")
+          ("svelte" . "\\.svelte\\'")
+          ("blade"  . "\\.blade\\.")))
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-code-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
@@ -422,6 +430,7 @@
       (or
         ;; tabby mode whitelist
         (derived-mode-p 'go-mode)
+        (derived-mode-p 'web-mode)
         (derived-mode-p 'makefile-mode))
       (allow-tabs)
       (murder-tabs))
