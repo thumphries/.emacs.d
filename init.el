@@ -233,7 +233,7 @@
         (locate-file "goimports" exec-path)
         (progn
           (setq gofmt-command "goimports")
-          (setq gofmt-args '("-local" "github.com/thumphries"))))
+          (setq gofmt-args '("-local" "github.com/thumphries,formation"))))
       (setq gofmt-show-errors 'echo)
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
