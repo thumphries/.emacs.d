@@ -82,6 +82,34 @@
       (indent-according-to-mode))
     (sp-local-pair 'go-mode "{" nil :post-handlers '(( my--go-open-block "RET"))))
 
+(use-package hydra
+  :load-path "site-lisp/hydra"
+  :defer t
+  :config
+    (progn
+      ;;** Example 5: mini-vi
+      (defun hydra-vi/pre ()
+        (set-cursor-color "#e52b50"))
+
+      (defun hydra-vi/post ()
+        (set-cursor-color "#ffffff"))
+
+      (defhydra hydra-vi (:pre hydra-vi/pre :post hydra-vi/post :color amaranth)
+        "vi"
+        ("l" forward-char)
+        ("h" backward-char)
+        ("j" next-line)
+        ("k" previous-line)
+        ("m" set-mark-command "mark")
+        ("a" move-beginning-of-line "beg")
+        ("e" move-end-of-line "end")
+        ("d" delete-region "del" :color blue)
+        ("y" kill-ring-save "yank" :color blue)
+        ("q" nil "quit"))
+      (hydra-set-property 'hydra-vi :verbosity 1))
+  :bind
+    (("C-c v" . hydra-vi/body)))
+
 (use-package dumb-jump
   :load-path "site-lisp/dumb-jump"
   :after (popup)
