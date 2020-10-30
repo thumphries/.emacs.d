@@ -85,6 +85,7 @@
 (use-package hydra
   :load-path "site-lisp/hydra"
   :defer t
+  :commands 'defhydra
   :config
     (progn
       ;;** Example 5: mini-vi
@@ -106,9 +107,20 @@
         ("d" delete-region "del" :color blue)
         ("y" kill-ring-save "yank" :color blue)
         ("q" nil "quit"))
-      (hydra-set-property 'hydra-vi :verbosity 1))
+      (hydra-set-property 'hydra-vi :verbosity 1)
+
+      (defhydra hydra-edit (nil nil)
+        "edit"
+        ("r" replace-regexp "replace-regexp")
+        ("a" align-regexp "align-regexp")
+        ("g" goto-line "goto-line")
+        ("R" revert-buffer "revert-buffer")
+        ("D" make-directory "make-directory")
+        ("M" lacarte-execute-menu-command "menu"))
+      (hydra-set-property 'hydra-edit :verbosity 1))
   :bind
-    (("C-c v" . hydra-vi/body)))
+    (("C-c v" . hydra-vi/body)
+     ("C-x C-b" . hydra-edit/body)))
 
 (use-package dumb-jump
   :load-path "site-lisp/dumb-jump"
@@ -265,7 +277,12 @@
       (setq gofmt-show-errors 'echo)
       (add-hook 'before-save-hook 'gofmt-before-save)
       (setq tab-width 2 indent-tabs-mode 1)
-      (yas-minor-mode))
+      (yas-minor-mode)
+
+      (defhydra hydra-golang (nil nil)
+        "golang"
+        ("i" godef-describe "info")
+        ("d" godoc-at-point "doc")))
     (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (use-package prop-menu
