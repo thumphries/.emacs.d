@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+emacs --eval '(progn (byte-compile-dependencies) (kill-emacs))'

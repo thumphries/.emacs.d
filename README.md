@@ -17,7 +17,7 @@ Goals:
 ```
 git clone https://github.com/thumphries/.emacs.d
 ln -s "$(pwd)/.emacs.d" "${HOME}/.emacs.d"
-emacs --eval '(progn (byte-compile-dependencies) (kill-emacs))'
+./compile
 ```
 
 ## Subtrees
