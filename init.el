@@ -5,6 +5,9 @@
 (setq max-lisp-eval-depth 10000) ;; default 500
 (setq max-specpdl-size 50000) ;; default 1300
 
+;; Disable cl deprecation warnings
+(setq byte-compile-warnings '(cl-functions))
+
 ;; Bootstrap use-package
 (eval-and-compile
   (mapc #'(lambda (path)
