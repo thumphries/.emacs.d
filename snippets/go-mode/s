@@ -1,0 +1,5 @@
+# condition: (looking-back "^s" nil)
+# --
+func (x ${1:Receiver}) String() string {
+	return ${0:string(x)}
+}

@@ -1,0 +1,5 @@
+# condition: (looking-back "^v" nil)
+# --
+func (x ${1:Receiver}) Validate() error {
+	return ${0:fmt.Errorf("Unimplemented")}
+}

@@ -1,0 +1,5 @@
+# condition: (looking-back "^marshaler" nil)
+# --
+func (x ${1:Receiver}) MarshalJSON() ([]byte, error) {
+	return nil, errors.New("MarshalJSON unimplemented!")
+}

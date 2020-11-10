@@ -1,0 +1,5 @@
+# condition: (looking-back "^unmarshaler" nil)
+# --
+func (x *${1:Receiver}) UnmarshalJSON(b []byte) error {
+	return errors.New("UnmarshalJSON unimplemented!")
+}
