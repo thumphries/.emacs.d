@@ -1,0 +1,3 @@
+validation.ValidateStruct(&${1:x},
+  validation.Field(&${1:x}.${2:Field}, validation.Required),
+)
