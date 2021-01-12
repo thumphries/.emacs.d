@@ -41,3 +41,4 @@ site-lisp/emacs-hcl-mode https://github.com/syohex/emacs-hcl-mode
 site-lisp/graphql-mode https://github.com/davazp/graphql-mode
 site-lisp/web-mode https://github.com/fxbois/web-mode
 site-lisp/hydra https://github.com/abo-abo/hydra
+site-lisp/typescript https://github.com/emacs-typescript/typescript.el
