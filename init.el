@@ -329,6 +329,10 @@
   :mode (("\\.tf" . terraform-mode)
          ("\\.tfvars" . terraform-mode)))
 
+(use-package typescript-mode
+  :load-path "site-lisp/typescript"
+  :mode (("\\.ts" . typescript-mode)))
+
 (use-package graphql-mode
   :load-path "site-lisp/graphql-mode"
   :mode (("\\.gql" . graphql-mode)
