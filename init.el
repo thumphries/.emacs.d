@@ -517,7 +517,7 @@
     (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
     (progn
       (tool-bar-mode -1)
-      (menu-bar-mode 0)))   ;; still want menu bar in OS X
+      (menu-bar-mode -1)))
 
 ;; mark ring
 ;; C-SPC C-SPC - add to mark ring
