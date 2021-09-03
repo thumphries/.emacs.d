@@ -514,7 +514,9 @@
 
 ;; Disable various visual cruft
 (if window-system
-    (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
+    (progn
+      (scroll-bar-mode -1) ;; scrollbar doesn't exist in cli
+      (tool-bar-mode -1))
     (progn
       (tool-bar-mode -1)
       (menu-bar-mode -1)))
