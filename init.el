@@ -16,10 +16,10 @@
         '("lisp" "site-lisp" "site-lisp/use-package"))
   (require 'use-package))
 
-(use-package exec-path-from-shell
-  :load-path "site-lisp/exec-path-from-shell"
-  :config (when (memq window-system '(mac ns x))
-            (exec-path-from-shell-initialize)))
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :load-path "site-lisp/exec-path-from-shell"
+    :config (exec-path-from-shell-initialize)))
 
 (use-package untabify-mode
   :load-path "lisp/untabify"
