@@ -43,3 +43,4 @@ site-lisp/hydra https://github.com/abo-abo/hydra
 site-lisp/typescript https://github.com/emacs-typescript/typescript.el
 site-lisp/emacs-reformatter https://github.com/purcell/emacs-reformatter
 site-lisp/ormolu https://github.com/vyorkin/ormolu.el
+site-lisp/exec-path-from-shell https://github.com/purcell/exec-path-from-shell
