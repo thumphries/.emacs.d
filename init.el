@@ -144,15 +144,25 @@
   :commands (diminish)
   :defer t)
 
+(use-package reformatter
+  :load-path "site-lisp/emacs-reformatter"
+  :commands (reformatter-define)
+  :defer t)
+
+(use-package ormolu
+  :load-path "site-lisp/ormolu"
+  :bind (("C-c C-r" . ormolu-format-buffer))
+  :commands (ormolu-format-on-save-mode)
+  :defer t)
+
 (use-package haskell-mode-autoloads
   :load-path "site-lisp/haskell-mode"
   :mode (("\\.hs\\(c\\|-boot\\)?\\'" . haskell-mode)
          ("\\.lhs\\'" . literate-haskell-mode)
          ("\\.cabal\\'" . haskell-cabal-mode))
-  :after (yasnippet)
+  :after (yasnippet ormolu)
   :config
     (defun my-haskell-mode-hook ()
-      (local-set-key (kbd "C-c d") #'dante-mode)
       (yas-minor-mode))
     (add-hook 'haskell-mode-hook 'my-haskell-mode-hook))
 
